@@ -30,6 +30,7 @@ enum class OperationCodes {
 
 void getSMLProgram(std::span<int>);
 OperationCodes getOperationType(int&);
+int getLocation(const int&);
 
 // Input/Output operations
 // read data from keyboard to a specific memory location
@@ -55,22 +56,18 @@ void multiply(const std::array<int, size>&, int, int&);
 
 
 int main() {
-  
-  int accumulator{0};
   std::array<int, size> memory{};
   
   getSMLProgram(memory);
   
   std::print("\nStart runing Program from memory....\n");
+  
+  int accumulator{0};
+  int instruction{memory.at(0)};
+  OperationCodes operation{getOperationType(instruction)};
+  int location{0};
 
-  for (size_t i{0}; i < size && memory.at(i) != 0; ++i) {
-    OperationCodes operation{getOperationType(memory.at(i))};
-
-    switch (operation) {
-      // case OperationCodes::read:
-
-
-    }
+  while (operation != OperationCodes::halt && location < size) {
     
   }
   
@@ -123,6 +120,10 @@ OperationCodes getOperationType(int& instruction) {
     case 23:
       return OperationCodes::halt;    
   }
+}
+
+int getLocation(const int& instruction) {
+  return std::abs(instruction % 100);
 }
 
 void Read(std::array<int, size>& memory, int location) {
