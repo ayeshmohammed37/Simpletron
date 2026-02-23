@@ -30,8 +30,16 @@ enum class OperationCodes {
 
 void getSMLProgram(std::span<int>);
 OperationCodes getOperationType(int&);
-void Read(int&);
 
+// Input/Output operations
+// read data from keyboard to a specific memory location
+void Read(std::array<int, size>&, int);
+// write data from specific memory location to the screen
+void write(const std::array<int, size>&, int);
+
+// Load/Store Operations
+// load data from memory into the accumulator
+void load(const std::array<int, size>&, int, int&);
 
 int main() {
   
@@ -46,14 +54,11 @@ int main() {
     OperationCodes operation{getOperationType(memory.at(i))};
 
     switch (operation) {
-      case OperationCodes::read:
+      // case OperationCodes::read:
+
 
     }
-    // Input/Output operations
     
-    // Load and Store Operations
-    // Arithmetic operations
-    // Transfare-of-control operations
   }
   
 }
@@ -116,7 +121,12 @@ void Read(std::array<int, size>& memory, int location) {
   memory.at(location) = number;
 }
 
-void write(std::array<int, size>& memory, int location) {
+void write(const std::array<int, size>& memory, int location) {
   std::println("{}", memory.at(location));
 }
+
+void load(const std::array<int, size>& memory, int location, int& accumulator) {
+  accumulator = memory.at(location);
+}
+
 
