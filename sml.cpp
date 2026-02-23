@@ -43,6 +43,17 @@ void load(const std::array<int, size>&, int, int&);
 // store data from accumulator into specific memory location
 void store(std::array<int, size>&, int, const int&);
 
+//Arithmeticc operations
+// add data from specific memory location to accumulator 
+void add(const std::array<int, size>&, int, int&);
+// subtract data from specific memory location from accumulator 
+void subtract(const std::array<int, size>&, int, int&);
+// divide data from specific memory location into accumulator 
+void divide(const std::array<int, size>&, int, int&);
+// multiply data from specific memory location to accumulator 
+void multiply(const std::array<int, size>&, int, int&);
+
+
 int main() {
   
   int accumulator{0};
@@ -134,4 +145,5 @@ void load(const std::array<int, size>& memory, int location, int& accumulator) {
 void store(std::array<int, size>& memory, int location, const int& accumulator) {
   memory.at(location) = accumulator;
 }
+
 
