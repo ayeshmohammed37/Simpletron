@@ -40,6 +40,8 @@ void write(const std::array<int, size>&, int);
 // Load/Store Operations
 // load data from memory into the accumulator
 void load(const std::array<int, size>&, int, int&);
+// store data from accumulator into specific memory location
+void store(std::array<int, size>&, int, const int&);
 
 int main() {
   
@@ -129,4 +131,7 @@ void load(const std::array<int, size>& memory, int location, int& accumulator) {
   accumulator = memory.at(location);
 }
 
+void store(std::array<int, size>& memory, int location, const int& accumulator) {
+  memory.at(location) = accumulator;
+}
 
