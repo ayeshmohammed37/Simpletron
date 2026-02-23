@@ -34,7 +34,7 @@ int getLocation(const int&);
 
 // Input/Output operations
 // read data from keyboard to a specific memory location
-void Read(std::array<int, size>&, int);
+void read(std::array<int, size>&, int);
 // write data from specific memory location to the screen
 void write(const std::array<int, size>&, int);
 
@@ -63,12 +63,30 @@ int main() {
   std::print("\nStart runing Program from memory....\n");
   
   int accumulator{0};
+  int pointer{0};
   int instruction{memory.at(0)};
   OperationCodes operation{getOperationType(instruction)};
-  int location{0};
+  int location{getLocation(instruction)};
 
-  while (operation != OperationCodes::halt && location < size) {
-    
+  while (operation != OperationCodes::halt && pointer < size) {
+    switch (operation) {
+      case OperationCodes::read:
+        read(memory, location);
+        pointer++;
+        instruction = memory.at(pointer);
+        operation = getOperationType(instruction);
+        location = getLocation(instruction);
+        break;
+      
+      case OperationCodes::write:
+        write(memory, location);
+        instruction = memory.at(pointer);
+        operation = getOperationType(instruction);
+        location = getLocation(instruction);
+        break;
+
+      
+    }
   }
   
 }
@@ -126,7 +144,7 @@ int getLocation(const int& instruction) {
   return std::abs(instruction % 100);
 }
 
-void Read(std::array<int, size>& memory, int location) {
+void read(std::array<int, size>& memory, int location) {
   int number;
   
   std::print("Number: ");
