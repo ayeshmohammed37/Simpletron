@@ -146,4 +146,19 @@ void store(std::array<int, size>& memory, int location, const int& accumulator) 
   memory.at(location) = accumulator;
 }
 
+void add(const std::array<int, size>& memory, int location, int& accumulator) {
+  accumulator += memory.at(location);
+}
+
+void subtract(const std::array<int, size>& memory, int location, int& accumulator) {
+  accumulator -= memory.at(location);
+}
+
+void divide(const std::array<int, size>& memory, int location, int& accumulator) {
+  accumulator /= memory.at(location);
+}
+
+void multiply(const std::array<int, size>& memory, int location, int& accumulator) {
+  accumulator *= memory.at(location);
+}
 
