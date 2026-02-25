@@ -97,7 +97,15 @@ void executeProgram(std::array<int, memory_size>& memory) {
       std::println("Number: {}", memory.at(location));
       memory_add++;
     }
-    
+    // load/store operations
+    else if (code == OperationCodes::load) {
+      accumulator = memory.at(location);
+      memory_add++;
+    }
+    else if (code == OperationCodes::store) {
+      memory.at(location) = accumulator;
+      memory_add++;
+    }
   }
 }
 
