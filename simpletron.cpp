@@ -56,6 +56,8 @@ void getProgram(std::array<int, memory_size>& memory) {
 
     memory.at(i++) = instruction;
   }
+
+  std::println();
 }
 
 void executeProgram(std::array<int, memory_size>& memory) {
@@ -68,6 +70,9 @@ void executeProgram(std::array<int, memory_size>& memory) {
   auto getOperationCode{
     [](const int& ins) { return static_cast<OperationCodes>(std::abs(ins / 100));}
   };
+
+  std::println("*** Program loading completed ***");
+  std::println("*** Program execution begins  ***");
 
   int accumulator{0};
   size_t memory_add{0};
@@ -139,5 +144,8 @@ void executeProgram(std::array<int, memory_size>& memory) {
       memory_add = 101;
     }
   }
+
+  std::println();
+  std::println("*** Simpletron execution terminated ***");
 }
 
