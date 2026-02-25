@@ -24,10 +24,11 @@ const int memory_size{100};
 // get sml program into memory
 void getProgram(std::array<int, memory_size>&);
 
-int main() {
+int main() {  
   std::array<int, memory_size> memory{0};
 
   getProgram(memory);
+  
 }
 
 void getProgram(std::array<int, memory_size>& memory) {
