@@ -1,20 +1,3 @@
-/*
-
-- Input SML program or 11111 to end
-    - initialize i{0}
-    - while i < memory_size
-        - prompt user to enter instruction
-        - check instruction 
-          - if instruction > 9999 or instruction < -9999
-            - tell the user instruction is out of range 
-- execute sml program
-
-
-- Initialize const memory_size{100}, memory[memory_size]
-- Get SML Program into memory
-- Execute SML Program from memory
-*/
-
 #include <array>
 #include <cstdlib>
 #include <iostream>
@@ -94,7 +77,7 @@ void executeProgram(std::array<int, memory_size>& memory) {
       memory_add++;
     }
     else if (code == OperationCodes::write) {
-      std::println("Number: {}", memory.at(location));
+      std::println("Result: {}", memory.at(location));
       memory_add++;
     }
     // load/store operations
