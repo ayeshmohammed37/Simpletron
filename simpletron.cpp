@@ -28,12 +28,21 @@ int main() {
 }
 
 void getProgram(std::array<int, memory_size>& memory) {
-  std::println("Enter SML Program or 11111 to end program.");
+  // std::println("Enter SML Program or 11111 to end program.");
+
+  std::println("***           Welcome to Simpletron           ***");
+  std::println("***                                           ***");
+  std::println("*** Please enter your program one instruction ***");
+  std::println("*** (or data word) at a time. I will type the ***");
+  std::println("*** location number and a question mark (?).  ***");
+  std::println("*** You then type the word for that location. ***");
+  std::println("*** Type the sentinel -99999 to stop entering ***");
+  std::println("*** your program.                             ***");
 
   int instruction;
   size_t i{0};
   while (i < memory_size) {
-    std::print("> ");
+    std::print("{:02} ? ", i);
     std::cin >> instruction;
 
     if (instruction == 11'111) {
@@ -71,13 +80,13 @@ void executeProgram(std::array<int, memory_size>& memory) {
     // Input/Output operations
     if (code == OperationCodes::read) {
       int number;
-      std::print(">Number: ");
+      std::print("? ");
       std::cin >> number;
       memory.at(location) = number;
       memory_add++;
     }
     else if (code == OperationCodes::write) {
-      std::println("Result: {}", memory.at(location));
+      std::println("? {}", memory.at(location));
       memory_add++;
     }
     // load/store operations
