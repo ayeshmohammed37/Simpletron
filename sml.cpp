@@ -16,10 +16,20 @@
 */
 
 #include <array>
+#include <cstdlib>
 #include <iostream>
 #include <print>
 
+// memory size: 100-word
 const int memory_size{100};
+
+// operation code specifying the operation to perform
+enum class OperationCodes {
+  read = 10, write,
+  load = 20, store,
+  add = 30, subtract, divide, multiply,
+  branch = 40, branchNeg, branchZero, halt
+};
 
 // get sml program into memory
 void getProgram(std::array<int, memory_size>&);
@@ -57,5 +67,37 @@ void getProgram(std::array<int, memory_size>& memory) {
 }
 
 void executeProgram(std::array<int, memory_size>& memory) {
-  
+  // determine location from instruction 
+  auto getLocation{
+    [](const int& ins) { return std::abs(ins % 100);}
+  };
+
+  // determine operation from instruction
+  auto getOperationCode{
+    [](const int& ins) { return static_cast<OperationCodes>(std::abs(ins / 100));}
+  };
+
+  int accumulator{0};
+  size_t memory_add{0};
+
+  while (memory_add < memory_size) {
+    int instruction{memory.at(memory_add)};
+    int location{getLocation(instruction)};
+    OperationCodes code{getOperationCode(instruction)};
+
+    // Input/Output operations
+    if (code == OperationCodes::read) {
+      int number;
+      std::print(">Number: ");
+      std::cin >> number;
+      memory.at(location) = number;
+      memory_add++;
+    }
+    else if (code == OperationCodes::write) {
+      std::println("Number: {}", memory.at(location));
+      memory_add++;
+    }
+    
+  }
 }
+
