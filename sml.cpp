@@ -1,3 +1,22 @@
+/*
+Redesign SML:
+- Initialize memory_size{100}
+- Initialize memory[memory_size]
+- Input SML program or 11111 to end
+    - initialize i{0}
+    - while i < memory_size
+        - prompt user to enter instruction
+        - check instruction 
+          - if instruction > 9999 or instruction < -9999
+            - tell the user instruction is out of range 
+- execute sml program
+
+
+- Initialize const memory_size{100}, memory[memory_size]
+- Get SML Program into memory
+- Execute SML Program from memory
+*/
+
 #include <array>
 #include <cstdlib>
 #include <iostream>
@@ -80,6 +99,7 @@ int main() {
       
       case OperationCodes::write:
         write(memory, location);
+        ++pointer;
         instruction = memory.at(pointer);
         operation = getOperationType(instruction);
         location = getLocation(instruction);
