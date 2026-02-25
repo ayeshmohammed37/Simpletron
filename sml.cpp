@@ -123,6 +123,29 @@ void executeProgram(std::array<int, memory_size>& memory) {
       accumulator *= memory.at(location);
       memory_add++;
     }
+    // Transfer-of-control operations
+    else if (code == OperationCodes::branch) {
+      memory_add = location;
+    }
+    else if (code == OperationCodes::branchNeg) {
+      if (accumulator < 0) {
+        memory_add = location;
+      }
+      else {
+        memory_add++;
+      }
+    }
+    else if (code == OperationCodes::branchZero) {
+      if (accumulator == 0) {
+        memory_add = location;
+      }
+      else {
+        memory_add++;
+      }
+    }
+    else if (code == OperationCodes::halt) {
+      memory_add = 101;
+    }
   }
 }
 
