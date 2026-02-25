@@ -17,22 +17,63 @@
 			- add instruction to memory
 		- ++i
 		
-- Execute SML Program from memory:
-
+#Execute SML Program from memory:
 initialize accumulator
 initialize memory_add 
 
-while operationCode not halt && memory_add < memory_size:
+while memory_add < memory_size:
 	get instruction
 	initialize location
 	initialize operationCode
 	
 	if operationCode is read:
-		get word from stdin 
-		update memory[location] = input
+		get input_word from stdin 
+		update memory[location] = input_word
 		memory_add++
-		continue
+	
 	else if operationCode is write:
 		print "Number: (memory[location])"
 		memory_add++
-		continue;
+	
+	else if operationCode is load:
+		accumulator = memory[location]
+		memory_add++
+
+	else if operationCode is store:
+		memory[location] = accumulator
+		memory_add++
+
+	else if operationCode is add:
+		accumulator += memory[location]
+		memory_add++
+		
+	else if operationCode is subtract:
+		accumulator -= memory[location]
+		memory_add++
+	
+	else if operationCode is divide:
+		accumulator /= memory[location]
+		memory_add++
+		
+	else if operationCode is multiply:
+		accumulator *= memory[location]
+		memory_add++
+	
+	else if operationCode is branch:
+		memory_add = location
+
+	else if operationCode is branchNeg:
+		if accumulator is negative:
+			memory_add = location
+		else 
+			memory_add++
+		
+	else if operationCode is branchZero:
+		if accumulator is zero
+			memory_add = location
+		else 
+			memory_add++
+
+	else if operationCode is halt:
+		memory_add = 101
+
