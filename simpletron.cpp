@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <iostream>
 #include <print>
+#include <span>
+#include <string>
 
 // memory size: 100-word
 const int memory_size{100};
@@ -14,8 +16,8 @@ enum class OperationCodes {
   branch = 40, branchNeg, branchZero, halt
 };
 
-// get sml program into memory
-void getProgram(std::array<int, memory_size>&);
+// reads the SML instructions from the user
+void load(std::span<int>);
 
 // execute sml program stored in memory
 void executeProgram(std::array<int, memory_size>&);
@@ -23,13 +25,23 @@ void executeProgram(std::array<int, memory_size>&);
 int main() {  
   std::array<int, memory_size> memory{0};
 
-  getProgram(memory);
+  load(memory);
   executeProgram(memory);
 }
 
-void getProgram(std::array<int, memory_size>& memory) {
-  // std::println("Enter SML Program or 11111 to end program.");
+inline void displayStartingMsg() {
+  std::println("***           Welcome to Simpletron           ***");
+  std::println("***                                           ***");
+  std::println("*** Please enter your program one instruction ***");
+  std::println("*** (or data word) at a time. I will type the ***");
+  std::println("*** location number and a question mark (?).  ***");
+  std::println("*** You then type the word for that location. ***");
+  std::println("*** Type the sentinel -99999 to stop entering ***");
+  std::println("*** your program.                             ***");
+}
 
+
+void load(std::span<int>) {
   std::println("***           Welcome to Simpletron           ***");
   std::println("***                                           ***");
   std::println("*** Please enter your program one instruction ***");
@@ -59,6 +71,8 @@ void getProgram(std::array<int, memory_size>& memory) {
 
   std::println();
 }
+
+
 
 void executeProgram(std::array<int, memory_size>& memory) {
   // determine location from instruction 
