@@ -106,6 +106,23 @@ void executeProgram(std::array<int, memory_size>& memory) {
       memory.at(location) = accumulator;
       memory_add++;
     }
+    // Arithmatic operations
+    else if (code == OperationCodes::add) {
+      accumulator += memory.at(location);
+      memory_add++;
+    }
+    else if (code == OperationCodes::subtract) {
+      accumulator -= memory.at(location);
+      memory_add++;
+    }
+    else if (code == OperationCodes::divide) {
+      accumulator *= memory.at(location);
+      memory_add++;
+    }
+    else if (code == OperationCodes::multiply) {
+      accumulator *= memory.at(location);
+      memory_add++;
+    }
   }
 }
 
