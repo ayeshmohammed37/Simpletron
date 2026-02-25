@@ -1,0 +1,38 @@
+- Initialize const memory_size{100}
+- Initialize memory[memory_size}
+- Initialize enum OperationCodes
+
+- Get SML Program into memory
+	- display msg "Enter SML Proram or 11111 to end program"
+	- Initialize i{0}
+	- while i < 100:
+		- prompt for instruction input ">"
+		- if instruction is 11111
+			- break
+		
+		- if instruction is not valid
+			- display msg"Error: Instruction not valid."
+			- continue looping
+		- else 
+			- add instruction to memory
+		- ++i
+		
+- Execute SML Program from memory:
+
+initialize accumulator
+initialize memory_add 
+
+while operationCode not halt && memory_add < memory_size:
+	get instruction
+	initialize location
+	initialize operationCode
+	
+	if operationCode is read:
+		get word from stdin 
+		update memory[location] = input
+		memory_add++
+		continue
+	else if operationCode is write:
+		print "Number: (memory[location])"
+		memory_add++
+		continue;

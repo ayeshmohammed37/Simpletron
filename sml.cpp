@@ -24,11 +24,14 @@ const int memory_size{100};
 // get sml program into memory
 void getProgram(std::array<int, memory_size>&);
 
+// execute sml program stored in memory
+void executeProgram(std::array<int, memory_size>&);
+
 int main() {  
   std::array<int, memory_size> memory{0};
 
   getProgram(memory);
-  
+  executeProgram(memory);
 }
 
 void getProgram(std::array<int, memory_size>& memory) {
@@ -51,4 +54,8 @@ void getProgram(std::array<int, memory_size>& memory) {
 
     memory.at(i++) = instruction;
   }
+}
+
+void executeProgram(std::array<int, memory_size>& memory) {
+  
 }
