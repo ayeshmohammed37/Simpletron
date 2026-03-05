@@ -1,16 +1,16 @@
 #starting msg
-"***           Welcome to Simpletron           ***\n" +
-"***                                           ***\n" +
-"*** Please enter your program one instruction ***\n" +
-"*** (or data word) at a time. I will type the ***\n" +
-"*** location number and a question mark (?).  ***\n" +
-"*** You then type the word for that location. ***\n" +
-"*** Type the sentinel -99999 to stop entering ***\n" +
+"***           Welcome to Simpletron           ***\n"
+"***                                           ***\n"
+"*** Please enter your program one instruction ***\n"
+"*** (or data word) at a time. I will type the ***\n"
+"*** location number and a question mark (?).  ***\n"
+"*** You then type the word for that location. ***\n"
+"*** Type the sentinel -99999 to stop entering ***\n"
 "*** your program.                             ***"
 
 #running msg:
-*** Program loading completed ***
-*** Program execution begins  ***
+"*** Program loading completed ***\n"
+"*** Program execution begins  ***"
 
 #halt msg
 "*** Simpletron execution terminated ***"

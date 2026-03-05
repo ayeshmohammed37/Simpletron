@@ -16,6 +16,21 @@ enum class OperationCodes {
   branch = 40, branchNeg, branchZero, halt
 };
 
+const std::string startingMsg{
+  "***           Welcome to Simpletron           ***\n"
+  "***                                           ***\n"
+  "*** Please enter your program one instruction ***\n"
+  "*** (or data word) at a time. I will type the ***\n"
+  "*** location number and a question mark (?).  ***\n"
+  "*** You then type the word for that location. ***\n"
+  "*** Type the sentinel -99999 to stop entering ***\n"
+  "*** your program.                             ***"
+};
+
+const std::string runningMsg{
+  "*** Program loading completed ***\n"
+  "*** Program execution begins  ***"
+};
 // reads the SML instructions from the user
 void load(std::span<int>);
 
@@ -29,35 +44,21 @@ int main() {
   executeProgram(memory);
 }
 
-inline void displayStartingMsg() {
-  std::println("***           Welcome to Simpletron           ***");
-  std::println("***                                           ***");
-  std::println("*** Please enter your program one instruction ***");
-  std::println("*** (or data word) at a time. I will type the ***");
-  std::println("*** location number and a question mark (?).  ***");
-  std::println("*** You then type the word for that location. ***");
-  std::println("*** Type the sentinel -99999 to stop entering ***");
-  std::println("*** your program.                             ***");
+inline void displayMsg(const std::string msg) {
+  std::print("{}\n", msg);
 }
 
 
-void load(std::span<int>) {
-  std::println("***           Welcome to Simpletron           ***");
-  std::println("***                                           ***");
-  std::println("*** Please enter your program one instruction ***");
-  std::println("*** (or data word) at a time. I will type the ***");
-  std::println("*** location number and a question mark (?).  ***");
-  std::println("*** You then type the word for that location. ***");
-  std::println("*** Type the sentinel -99999 to stop entering ***");
-  std::println("*** your program.                             ***");
+void load(std::span<int> memory) {
+  displayMsg(startingMsg);
 
   int instruction;
   size_t i{0};
   while (i < memory_size) {
-    std::print("{:02} ? ", i);
+    std::print("{:02d} ? ", i);
     std::cin >> instruction;
 
-    if (instruction == 11'111) {
+    if (instruction =-99999) {
       break;
     }
 
