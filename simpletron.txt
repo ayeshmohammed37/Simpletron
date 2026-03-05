@@ -1,0 +1,43 @@
+accumulator:
+  special register that store informations before simpletron using it in the calculations
+
+simpletron handled the informations as word:
+words:
+  signed four-digit decimal number, such as +3364, -1293, +0007, -0001,
+
+simpletron have:
+  100-word memory start from 00...99
+
+SML instruction:
+  one word of the simpletron memory defalut for the instruction us plus sign but somedata maybe a minus sign
+  first two digits is operation code
+  last two digits is operand(memory location for the word to operation applies)
+
+1- load program into memory
+    first instruction location is 00
+2- execute program from memory
+
+example: (read two numbers and print their sum)
+00  +1007 (Read A)
+01  +1008 (Read B)
+02  +2007 (Load A)
+03  +3008 (Add B)
+04  +2109 (Store C)
+05  +1109 (Write C)
+06  +4300 (Halt)
+07  +0000 (Variable A)
+08  +0000 (Variable B)
+09  +0000 (Result C)
+
+example: (reads two numbers then determine and print the larger value)
+00  +1009 (Read B)
+01  +1010 (Load A)
+02  +2009 (Subtract B)
+03  +3110 (Read A)
+04  +4107 (Branch negative to 07)
+05  +1109 (Write A)
+06  +4300 (Halt)
+07  +1110 (Write B)
+08  +4300 (Halt)
+09  +0000 (Variable A)
+10  +0000 (Variable B)
