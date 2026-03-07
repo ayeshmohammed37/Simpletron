@@ -34,13 +34,22 @@ int main() {
   // simpletron memory: 100-word
   std::array<int, memory_size> memory{0};
 
+  // special registers
   int accumulator{0};
   int instructionCounter{0};
   int instructionRegister{0};
   int operationCode{0};
   int operand{0};
 
-  
+  // print welcoming msg
+  std::cout << "***            Welcome to Simpletron          ***\n"
+    << "***                                           ***\n"
+    << "*** Please enter your program one instruction ***\n"
+    << "*** (or data word) at a time. I will type the ***\n"
+    << "*** location number and a question mark (?).  ***\n"
+    << "*** You then type the word for that location. ***\n"
+    << "*** Type the sentinel -99999 to stop entering ***\n"
+    << "*** your program.                             ***";
 
 
   // load(memory);
