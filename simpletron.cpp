@@ -27,7 +27,7 @@ int main() {
 
   load(memory);
   
-  // executeProgram(memory);
+  executeProgram(memory);
 }
 
 bool isValid(int instruction) {
@@ -96,49 +96,50 @@ void executeProgram(std::array<int, memory_size>& memory) {
     instruction = memory.at(memory_add);
     operand = getOperationCode(instruction);
     location = getLocation(instruction);
+    
     // Input/Output operations
-    if (code == OperationCodes::read) {
+    if (operand == OperationCodes::read) {
       int number;
-      std::print("? ");
+      std::print("Number ? ");
       std::cin >> number;
       memory.at(location) = number;
       memory_add++;
     }
-    else if (code == OperationCodes::write) {
+    else if (operand == OperationCodes::write) {
       std::println("? {}", memory.at(location));
       memory_add++;
     }
     // load/store operations
-    else if (code == OperationCodes::load) {
+    else if (operand == OperationCodes::load) {
       accumulator = memory.at(location);
       memory_add++;
     }
-    else if (code == OperationCodes::store) {
+    else if (operand == OperationCodes::store) {
       memory.at(location) = accumulator;
       memory_add++;
     }
     // Arithmatic operations
-    else if (code == OperationCodes::add) {
+    else if (operand == OperationCodes::add) {
       accumulator += memory.at(location);
       memory_add++;
     }
-    else if (code == OperationCodes::subtract) {
+    else if (operand == OperationCodes::subtract) {
       accumulator -= memory.at(location);
       memory_add++;
     }
-    else if (code == OperationCodes::divide) {
-      accumulator *= memory.at(location);
+    else if (operand == OperationCodes::divide) {
+      accumulator /= memory.at(location);
       memory_add++;
     }
-    else if (code == OperationCodes::multiply) {
+    else if (operand == OperationCodes::multiply) {
       accumulator *= memory.at(location);
       memory_add++;
     }
     // Transfer-of-control operations
-    else if (code == OperationCodes::branch) {
+    else if (operand == OperationCodes::branch) {
       memory_add = location;
     }
-    else if (code == OperationCodes::branchNeg) {
+    else if (operand == OperationCodes::branchNeg) {
       if (accumulator < 0) {
         memory_add = location;
       }
@@ -146,7 +147,7 @@ void executeProgram(std::array<int, memory_size>& memory) {
         memory_add++;
       }
     }
-    else if (code == OperationCodes::branchZero) {
+    else if (operand == OperationCodes::branchZero) {
       if (accumulator == 0) {
         memory_add = location;
       }
@@ -154,7 +155,7 @@ void executeProgram(std::array<int, memory_size>& memory) {
         memory_add++;
       }
     }
-    else if (code == OperationCodes::halt) {
+    else {
       memory_add = 101;
     }
   }
