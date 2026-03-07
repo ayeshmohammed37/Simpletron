@@ -56,4 +56,32 @@ sml Pseudocode
         continue
       add ins to memory
       cnt++
-    
+  
+  execute program
+    initialize accumulator,instruction, operand, location, address
+
+    while address < memorySize
+      get instruction
+      get operand
+      get location
+
+      if read/write operation
+        execute operation
+        ++address
+      else if load/store operation
+        execute operation
+        ++address
+      else if Arithmetic operations
+        execute operation
+        ++address
+      else 
+        if branch 
+          address = location
+        else if branchNeg
+          address = location
+        else if branchZero
+          address = location
+        else halt
+          address = memorySize + 1
+
+      

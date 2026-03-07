@@ -20,7 +20,7 @@ enum class OperationCodes {
 void load(std::span<int>);
 
 // execute sml program stored in memory
-// void executeProgram(std::array<int, memory_size>&);
+void executeProgram(std::array<int, memory_size>&);
 
 int main() {  
   std::array<int, memory_size> memory{0};
@@ -72,92 +72,94 @@ void load(std::span<int> memory) {
 
 
 
-// void executeProgram(std::array<int, memory_size>& memory) {
-//   // determine location from instruction 
-//   auto getLocation{
-//     [](const int& ins) { return std::abs(ins % 100);}
-//   };
+void executeProgram(std::array<int, memory_size>& memory) {
+  // determine location from instruction 
+  auto getLocation{
+    [](const int& ins) { return abs(ins % 100);}
+  };
 
-//   // determine operation from instruction
-//   auto getOperationCode{
-//     [](const int& ins) { return static_cast<OperationCodes>(std::abs(ins / 100));}
-//   };
+  // determine operation from instruction
+  auto getOperationCode{
+    [](const int& ins) { return static_cast<OperationCodes>(abs(ins / 100));}
+  };
 
-//   std::println("*** Program loading completed ***");
-//   std::println("*** Program execution begins  ***");
+  std::println("*** Program loading completed ***");
+  std::println("*** Program execution begins  ***");
 
-//   int accumulator{0};
-//   size_t memory_add{0};
+  int accumulator{0};
+  size_t memory_add{0};
+  int instruction{0};
+  OperationCodes operand;
+  int location{0};
 
-//   while (memory_add < memory_size) {
-//     int instruction{memory.at(memory_add)};
-//     int location{getLocation(instruction)};
-//     OperationCodes code{getOperationCode(instruction)};
+  while (memory_add < memory_size) {
+    instruction = memory.at(memory_add);
+    operand = getOperationCode(instruction);
+    location = getLocation(instruction);
+    // Input/Output operations
+    if (code == OperationCodes::read) {
+      int number;
+      std::print("? ");
+      std::cin >> number;
+      memory.at(location) = number;
+      memory_add++;
+    }
+    else if (code == OperationCodes::write) {
+      std::println("? {}", memory.at(location));
+      memory_add++;
+    }
+    // load/store operations
+    else if (code == OperationCodes::load) {
+      accumulator = memory.at(location);
+      memory_add++;
+    }
+    else if (code == OperationCodes::store) {
+      memory.at(location) = accumulator;
+      memory_add++;
+    }
+    // Arithmatic operations
+    else if (code == OperationCodes::add) {
+      accumulator += memory.at(location);
+      memory_add++;
+    }
+    else if (code == OperationCodes::subtract) {
+      accumulator -= memory.at(location);
+      memory_add++;
+    }
+    else if (code == OperationCodes::divide) {
+      accumulator *= memory.at(location);
+      memory_add++;
+    }
+    else if (code == OperationCodes::multiply) {
+      accumulator *= memory.at(location);
+      memory_add++;
+    }
+    // Transfer-of-control operations
+    else if (code == OperationCodes::branch) {
+      memory_add = location;
+    }
+    else if (code == OperationCodes::branchNeg) {
+      if (accumulator < 0) {
+        memory_add = location;
+      }
+      else {
+        memory_add++;
+      }
+    }
+    else if (code == OperationCodes::branchZero) {
+      if (accumulator == 0) {
+        memory_add = location;
+      }
+      else {
+        memory_add++;
+      }
+    }
+    else if (code == OperationCodes::halt) {
+      memory_add = 101;
+    }
+  }
 
-//     // Input/Output operations
-//     if (code == OperationCodes::read) {
-//       int number;
-//       std::print("? ");
-//       std::cin >> number;
-//       memory.at(location) = number;
-//       memory_add++;
-//     }
-//     else if (code == OperationCodes::write) {
-//       std::println("? {}", memory.at(location));
-//       memory_add++;
-//     }
-//     // load/store operations
-//     else if (code == OperationCodes::load) {
-//       accumulator = memory.at(location);
-//       memory_add++;
-//     }
-//     else if (code == OperationCodes::store) {
-//       memory.at(location) = accumulator;
-//       memory_add++;
-//     }
-//     // Arithmatic operations
-//     else if (code == OperationCodes::add) {
-//       accumulator += memory.at(location);
-//       memory_add++;
-//     }
-//     else if (code == OperationCodes::subtract) {
-//       accumulator -= memory.at(location);
-//       memory_add++;
-//     }
-//     else if (code == OperationCodes::divide) {
-//       accumulator *= memory.at(location);
-//       memory_add++;
-//     }
-//     else if (code == OperationCodes::multiply) {
-//       accumulator *= memory.at(location);
-//       memory_add++;
-//     }
-//     // Transfer-of-control operations
-//     else if (code == OperationCodes::branch) {
-//       memory_add = location;
-//     }
-//     else if (code == OperationCodes::branchNeg) {
-//       if (accumulator < 0) {
-//         memory_add = location;
-//       }
-//       else {
-//         memory_add++;
-//       }
-//     }
-//     else if (code == OperationCodes::branchZero) {
-//       if (accumulator == 0) {
-//         memory_add = location;
-//       }
-//       else {
-//         memory_add++;
-//       }
-//     }
-//     else if (code == OperationCodes::halt) {
-//       memory_add = 101;
-//     }
-//   }
-
-//   std::println();
-//   std::println("*** Simpletron execution terminated ***");
-// }
+  std::println();
+  std::println("*** Simpletron execution terminated ***");
+}
 
