@@ -45,21 +45,15 @@ example: (reads two numbers then determine and print the larger value)
 
 sml Pseudocode
   load program into memory
-    initialize cnt
-    get ins
-    while ins_valid(ins) && cnt < memory_size
-      add ins to memory
-      get ins
-    if ins out of range -9999..9999
-      return true
-    
-    display msg"Error: instruction is not valid"
-    return flase
-    
+    initialize cnt, ins
 
-  ins_valid(ins)
-    if ins out of range -9999..9999
-      return false
-    if operation_code in OperationCodes && operand in memory range
-      return true
-    return false
+    while  cnt < memory_size
+      get ins
+      if ins out of range
+        end load
+      else if ins wrong
+        print msg
+        continue
+      add ins to memory
+      cnt++
+    
