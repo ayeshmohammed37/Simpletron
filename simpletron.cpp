@@ -49,12 +49,16 @@ int main() {
     << "*** location number and a question mark (?).  ***\n"
     << "*** You then type the word for that location. ***\n"
     << "*** Type the sentinel -99999 to stop entering ***\n"
-    << "*** your program.                             ***";
+    << "*** your program.                             ***\n";
 
 
   load(memory);
   
-  // executeProgram(memory);
+  // print loading done msg
+  std::cout << "*** Program loading completed ***\n"
+    << "*** Program execution begins  ***";
+  
+    // executeProgram(memory);
 }
 
 void load(std::span<int> memory) {
