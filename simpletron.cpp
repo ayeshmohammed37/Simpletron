@@ -52,50 +52,32 @@ int main() {
     << "*** your program.                             ***";
 
 
-  // load(memory);
+  load(memory);
   
   // executeProgram(memory);
 }
 
-// bool isValid(int instruction) {
-//   int op{abs(instruction / 100)};
-//   int location{abs(instruction % 100)};
+void load(std::span<int> memory) {
+  int ins{0};
+  int cnt{0};
 
-//   bool opCheck{false};
-//   bool locationCheck{false};
+  while (cnt < memory.size()) {
+    std::print("{:02} ? ", cnt);
+    std::cin >> ins;
 
-//   if (op == 10 || op == 11 || op == 20 || op == 21 || (op >= 30 && op <= 33) || (op >= 40 && op <= 43)) {
-//     opCheck = true;
-//   }
-  
-//   if (location >= 0 && location < 100) {
-//     locationCheck = true;
-//   }
-
-//   return opCheck && locationCheck;
-// }
-
-// void load(std::span<int> memory) {
-//   int ins{0};
-//   int cnt{0};
-
-//   while (cnt < memory.size()) {
-//     std::print("{:02} ? ", cnt);
-//     std::cin >> ins;
-
-//     if (ins > 9999 || ins < -9999) {
-//       return;
-//     }
-
-//     if (!isValid(ins)) {
-//       std::println("Error: the instruction is not valid.");
-//       continue;
-//     }
+    if (ins == -9999) {
+      return;
+    }
     
-//     memory.at(cnt) = ins;
-//     cnt++;
-//   }
-// }
+    if (ins > 9999 || ins < -9999) {
+      std::cout << "Error: the instruction out of range(-9999..+9999).\n";
+      continue;
+    }
+    
+    memory.at(cnt) = ins;
+    cnt++;
+  }
+}
 
 
 
