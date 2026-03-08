@@ -20,6 +20,8 @@ void load(std::span<int>);
 // execute sml program stored in memory
 void executeProgram(std::span<int>, int&, int&, int&, OperationCodes&, int&);
 
+void dump(std::span<int>, int&, int&, int&, OperationCodes&, int&);
+
 int main() {  
   // memory size: 100-word
   const size_t memory_size{100};
@@ -52,6 +54,10 @@ int main() {
     << "*** Program execution begins  ***";
   
     // executeProgram(memory);
+    executeProgram(memory, accumulator, instructionCounter, 
+      instructionRegister, operationCode, operand);
+
+    
 }
 
 
@@ -195,7 +201,7 @@ void executeProgram(std::span<int> memory, int& accumulator,
               break;          
           }
           break;
-          
+
       // Halt—i.e., the program has completed its task.
       default: 
         instructionCounter = memory.size() + 1;
@@ -205,3 +211,33 @@ void executeProgram(std::span<int> memory, int& accumulator,
   }
 }
 
+
+void dump(std::span<int> memory, int& accumulator, int& instructionCounter, 
+  int& instructionRegister, OperationCodes& operationCode, int& operand) {
+  
+  std::cout << "\nREGISTERS:\n"
+    << std::format("{:<26}{:+05d}\n", "accumulator", accumulator)
+    << std::format("{:<29}{:02d}\n", "instructionCounter", instructionCounter)
+    << std::format("{:<26}{:+05d}\n", "InstructionRegister", instructionRegister)
+    << std::format("{:<29}{:02d}\n", "operationCode", static_cast<int>(operationCode))
+    << std::format("{:<29}{:02d}\n", "operand", operand);
+  
+  std::cout << "\nMEMORY:\n  ";
+
+  // print first row 
+  for (int i{0}; i < 10; ++i) {
+    std::cout << std::format("  {:>5}", i);
+  }
+  std::cout << "\n";
+
+  // print memory
+  for (int i{0}; i < 10; ++i) {
+    std::cout << std::format("{:>2d}", (i * 10));
+    
+    for (int j{0}; j < 10; ++j) {
+      int index{j + i * 10};
+      std::cout << std::format("  {:+05d}", memory.at(index));
+    }
+    std::cout << "\n";
+  }
+}
