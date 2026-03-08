@@ -217,7 +217,7 @@ void executeProgram(std::span<int> memory, int& accumulator,
 
 void dump(std::span<int> memory, int& accumulator, int& instructionCounter, 
   int& instructionRegister, OperationCodes& operationCode, int& operand) {
-  
+  instructionCounter = instructionCounter > 99 ? 99 : instructionCounter;
   std::cout << "\nREGISTERS:\n"
             << std::format("{:<26}{:+05d}\n", "accumulator", accumulator)
             << std::format("{:<29}{:02d}\n", "instructionCounter", instructionCounter)
