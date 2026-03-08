@@ -162,9 +162,17 @@ void executeProgram(std::span<int> memory, int& accumulator,
       // Divide a word from a specific memory location into the word in the
       // accumulator (leave the result in the accumulator). 
       case   OperationCodes::divide:
-        accumulator /= memory.at(operand);
-        instructionCounter++;
-        break;
+        if (memory.at(operand) == 0) {
+          std::cout << "*** Attempt to divide by zero                  ***\n";
+          std::cout << "\n*** Simpletron execution terminated ***\n";
+          instructionCounter = memory.size() + 1;
+          break; 
+        }
+        else {
+          accumulator = accumulator / memory.at(operand);
+          instructionCounter++;
+          break;
+        }
     
       // Multiply a word from a specific memory location by the word in the
       // accumulator (leave the result in the accumulator).

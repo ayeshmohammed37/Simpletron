@@ -1,47 +1,4 @@
 
-welcomeMsg:
-***            Welcome to Simpletron          ***
-***                                           ***
-*** Please enter your program one instruction ***
-*** (or data word) at a time. I will type the ***
-*** location number and a question mark (?).  ***
-*** You then type the word for that location. ***
-*** Type the sentinel -99999 to stop entering ***
-*** your program.                             ***
-
-loadingDoneMsg:
-*** Program loading completed ***
-*** Program execution begins  ***
-
-haltMsg:
-  "*** Simpletron execution terminated ***"
-
-computerDumpMsg:
-REGISTERS:
-accumulator               +0000
-instructionCounter           00
-instructionRegister       +0000
-operationCode                00
-operand                      00
-
-
-MEMORY:
-        0      1    
-0   +0000  +0000  
-10  +0000  +0000  
-20  +0000  +0000  
-30  +0000  +0000  
-40  +0000  +0000  
-50  +0000  +0000  
-60  +0000  +0000  
-70  +0000  +0000  
-80  +0000  +0000  
-90  +0000  +0000  
-
-
-
-
-
 
 errorMsg:
 *** Attempt to divide by zero                  ***
@@ -49,35 +6,7 @@ errorMsg:
 
 
 
-
-Simpletron simulator:
-  initialize memory[100]
-  
-  initialize special registers
-    accumulator,
-    instructionCounter(store number of memory location contining the instruction being performed)
-    operationCode(left most two digits),
-    operand(store number of memory location of on which current instruction operates right most two digits)
-    instructionRegister(store the next instruction to be performed)
-  
-  print welcomeMsg
-  
-  load program
-
-  execute program
-    instruction execution cycle
-      fetch instruction from memory[instructionCounter] and store it in instructionRegister
-      extract operationCode and operand from instructionRegiste
-      use switch to determine the operation code
-        execute operation
-        update instructionCounter
-
-  print computerDumpMsg
-
-
 check for erroes
-  loading phase
-    each number must be in the range (-9999 to +9999), keep prompting the user to re-enter the number untill a correct number is entered
   exection phase
     fetal errors
       divide by zero
