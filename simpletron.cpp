@@ -214,8 +214,16 @@ void executeProgram(std::span<int> memory, int& accumulator,
           break;
 
       // Halt—i.e., the program has completed its task.
+      case OperationCodes::halt:
+        instructionCounter = memory.size() + 1;
+        std::cout << "\n*** Simpletron execution terminated ***\n";
+        break; 
+      
+      // invalid operation code
       default: 
         instructionCounter = memory.size() + 1;
+        std::cout << "*** Invalid operation code: No operation with code (" 
+                  << static_cast<int>(operationCode) << ")\n";
         std::cout << "\n*** Simpletron execution terminated ***\n";
         break;          
     } 
