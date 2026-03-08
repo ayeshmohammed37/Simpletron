@@ -38,25 +38,28 @@ int main() {
 
   // print welcoming msg
   std::cout << "***            Welcome to Simpletron          ***\n"
-    << "***                                           ***\n"
-    << "*** Please enter your program one instruction ***\n"
-    << "*** (or data word) at a time. I will type the ***\n"
-    << "*** location number and a question mark (?).  ***\n"
-    << "*** You then type the word for that location. ***\n"
-    << "*** Type the sentinel -99999 to stop entering ***\n"
-    << "*** your program.                             ***\n";
+            << "***                                           ***\n"
+            << "*** Please enter your program one instruction ***\n"
+            << "*** (or data word) at a time. I will type the ***\n"
+            << "*** location number and a question mark (?).  ***\n"
+            << "*** You then type the word for that location. ***\n"
+            << "*** Type the sentinel -99999 to stop entering ***\n"
+            << "*** your program.                             ***\n";
 
 
   load(memory);
   
   // print loading done msg
   std::cout << "*** Program loading completed ***\n"
-    << "*** Program execution begins  ***";
+            << "*** Program execution begins  ***\n";
   
-    // executeProgram(memory);
-    executeProgram(memory, accumulator, instructionCounter, 
-      instructionRegister, operationCode, operand);
+  // executeProgram(memory);
+  executeProgram(memory, accumulator, instructionCounter, 
+    instructionRegister, operationCode, operand);
 
+  
+  dump(memory, accumulator, instructionCounter, 
+    instructionRegister, operationCode, operand);
     
 }
 
@@ -124,7 +127,7 @@ void executeProgram(std::span<int> memory, int& accumulator,
 
       // write a word from a specific memory location to the screen
       case OperationCodes::write:
-        std::cout << memory.at(operand);
+        std::cout << memory.at(operand) << "\n";
         instructionCounter++;
         break;
       
@@ -205,7 +208,7 @@ void executeProgram(std::span<int> memory, int& accumulator,
       // Halt—i.e., the program has completed its task.
       default: 
         instructionCounter = memory.size() + 1;
-        std::cout << "*** Simpletron execution terminated ***\n";
+        std::cout << "\n*** Simpletron execution terminated ***\n";
         break;          
     } 
   }
@@ -216,11 +219,11 @@ void dump(std::span<int> memory, int& accumulator, int& instructionCounter,
   int& instructionRegister, OperationCodes& operationCode, int& operand) {
   
   std::cout << "\nREGISTERS:\n"
-    << std::format("{:<26}{:+05d}\n", "accumulator", accumulator)
-    << std::format("{:<29}{:02d}\n", "instructionCounter", instructionCounter)
-    << std::format("{:<26}{:+05d}\n", "InstructionRegister", instructionRegister)
-    << std::format("{:<29}{:02d}\n", "operationCode", static_cast<int>(operationCode))
-    << std::format("{:<29}{:02d}\n", "operand", operand);
+            << std::format("{:<26}{:+05d}\n", "accumulator", accumulator)
+            << std::format("{:<29}{:02d}\n", "instructionCounter", instructionCounter)
+            << std::format("{:<26}{:+05d}\n", "InstructionRegister", instructionRegister)
+            << std::format("{:<29}{:02d}\n", "operationCode", static_cast<int>(operationCode))
+            << std::format("{:<29}{:02d}\n", "operand", operand);
   
   std::cout << "\nMEMORY:\n  ";
 
