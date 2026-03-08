@@ -9,5 +9,4 @@ errorMsg:
 check for erroes
   exection phase
     fetal errors
-      invalid operation code
       accumulator overflows(arithmetic operation resulting calues out of range +9999 to -9999)

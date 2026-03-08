@@ -101,6 +101,16 @@ void executeProgram(std::span<int> memory, int& accumulator,
     [](const int& ins) { return static_cast<OperationCodes>(abs(ins / 100));}
   };
 
+  // check accumulator overflows
+  // overflows(arithmetic operation resulting calues out of range +9999 to -9999)
+  auto overflow{
+    [](const int& accumulator) {
+      if (accumulator > +9999 || accumulator < -9999)
+        return true;
+      return false;
+    }
+  };
+
   // instruction execution cycle
   while (instructionCounter < memory.size()) {
     // fetch instruction from memory and store it in instructionRegister
@@ -149,15 +159,31 @@ void executeProgram(std::span<int> memory, int& accumulator,
       // accumulator (leave the result in the accumulator).
       case OperationCodes::add:
         accumulator += memory.at(operand);
-        instructionCounter++;
-        break;
+        if (overflow(accumulator)) {
+          std::cout << "Error: accumulator overflow\n";
+          std::cout << "\n*** Simpletron execution terminated ***\n";
+          instructionCounter = memory.size() + 1;
+          break;
+        }
+        else {
+          instructionCounter++;
+          break;
+        }
       
       // Subtract a word from a specific memory location from the word in the
       // accumulator (leave the result in the accumulator). 
       case   OperationCodes::subtract:
         accumulator -= memory.at(operand);
-        instructionCounter++;
-        break;
+        if (overflow(accumulator)) {
+          std::cout << "Error: accumulator overflow\n";
+          std::cout << "\n*** Simpletron execution terminated ***\n";
+          instructionCounter = memory.size() + 1;
+          break;
+        }
+        else {
+          instructionCounter++;
+          break;
+        }
     
       // Divide a word from a specific memory location into the word in the
       // accumulator (leave the result in the accumulator). 
@@ -170,16 +196,32 @@ void executeProgram(std::span<int> memory, int& accumulator,
         }
         else {
           accumulator = accumulator / memory.at(operand);
-          instructionCounter++;
-          break;
+          if (overflow(accumulator)) {
+            std::cout << "Error: accumulator overflow\n";
+            std::cout << "\n*** Simpletron execution terminated ***\n";
+            instructionCounter = memory.size() + 1;
+            break;
+          }
+          else {
+            instructionCounter++;
+            break;
+          }
         }
     
       // Multiply a word from a specific memory location by the word in the
       // accumulator (leave the result in the accumulator).
       case   OperationCodes::multiply:
         accumulator *= memory.at(operand);
-        instructionCounter++;
-        break;
+        if (overflow(accumulator)) {
+          std::cout << "Error: accumulator overflow\n";
+          std::cout << "\n*** Simpletron execution terminated ***\n";
+          instructionCounter = memory.size() + 1;
+          break;
+        }
+        else {
+          instructionCounter++;
+          break;
+        }
       
       // Transfare-of-control operations:
       // Branch to a specific memory location.
