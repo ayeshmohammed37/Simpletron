@@ -1,0 +1,11 @@
+a) Use a sentinel-controlled loop to read positive integers, then compute and print
+their sum.
+// num = mem[08], sum = mem[09]
+00: 1008  Read num
+01: 2008  Load num
+02: 4106  BracncNeg to 06
+03: 3009  add sum
+04: 2109  store sum
+05: 4000  branch to 00
+06: 1109  write sum
+07: 4300  halt

@@ -44,10 +44,8 @@ int main() {
   }
   
   int accumulator{0};
-  // int operand{memory.at(0) % 100};
-  // OperationCodes operation{memory.at(0) / 100};
-
   int i{0};
+  
   while(i < 100) {
     int operand{memory.at(i) % 100};
     OperationCodes operation{memory.at(i) / 100};
