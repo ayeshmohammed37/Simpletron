@@ -1,6 +1,7 @@
 #include <iostream>
 #include <print>
 #include <vector>
+#include <utility>
 
 int main() {
   enum class OperationCodes {
@@ -94,14 +95,25 @@ int main() {
         break;
         
       case OperationCodes::branch :
-      
+        i = operand;
+        break;
+
       case OperationCodes::branchNeg :
-      
+        i = accumulator < 0 ? operand : i + 1;
+        break;
+
       case OperationCodes::branchZero :
-      
+        i = accumulator == 0 ? operand : i + 1;
+        break;
+        
       case OperationCodes::halt :
-      
+        i = 101;
+        break;
+
       default:
+        std::println("operation code({}): not defined", std::to_underlying(operation));
+        i = 101;
+        break;
     }
   
   }
