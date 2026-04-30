@@ -4,7 +4,9 @@
 #include <utility>
 #include <string>
 
+// printing welcome msg
 void printWelcomeMsg() {
+  //welcome msg
   std::string msg{
     "***           Welcome to Simpletron           ***\n"
     "***                                           ***\n"
@@ -15,15 +17,20 @@ void printWelcomeMsg() {
     "*** Type the sentinel -99999 to stop entering ***\n"
     "*** your program.                             ***"
   };
+
+  // print welcome msg
   std::println("{}", msg);
 }
 
+// loading SML instructions into memeory
 void load(std::vector<int>& memory) {
+  // word represent instruction that user input
   int word{0};  
+  
+  // 
   int cnt{0};
-
   while (cnt < 100) {
-    std::print("{:2d} ? ", cnt);
+    std::print("{:02d} ? ", cnt);
     std::cin >> word;
 
     if (word == -99999) {
@@ -34,10 +41,11 @@ void load(std::vector<int>& memory) {
   std::println("*** Program loading completed ***\n*** Program execution begins ***");
 }
 
+void execute(std::vector<int>& memory) {
+
+}
+
 int main() {
-
-  printWelcomeMsg();
-
   enum class OperationCodes {
     // Input/output operations:
     read = 10,
@@ -59,23 +67,12 @@ int main() {
     branchZero = 42,
     halt = 43,
   };
-
-  int word{0};
-  std::vector<int> memory(100, 0);
   
-  int cnt{0};
-  std::println("Enter instructions or (-10000) to end the program");
+  std::vector<int> memory(100, 0);
 
-  while (cnt < 100) {
-    std::print(">");
-    std::cin >> word;
+  printWelcomeMsg();
+  load(memory);
 
-    if (word == -10000) {
-      break;
-    }
-    
-    memory.at(cnt++) = std::abs(word);
-  }
   
   int accumulator{0};
   int i{0};
