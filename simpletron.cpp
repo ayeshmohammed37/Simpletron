@@ -2,8 +2,42 @@
 #include <print>
 #include <vector>
 #include <utility>
+#include <string>
+
+void printWelcomeMsg() {
+  std::string msg{
+    "***           Welcome to Simpletron           ***\n"
+    "***                                           ***\n"
+    "*** Please enter your program one instruction ***\n"
+    "*** (or data word) at a time. I will type the ***\n"
+    "*** location number and a question mark (?).  ***\n"
+    "*** You then type the word for that location. ***\n"
+    "*** Type the sentinel -99999 to stop entering ***\n"
+    "*** your program.                             ***"
+  };
+  std::println("{}", msg);
+}
+
+void load(std::vector<int>& memory) {
+  int word{0};  
+  int cnt{0};
+
+  while (cnt < 100) {
+    std::print("{:2d} ? ", cnt);
+    std::cin >> word;
+
+    if (word == -99999) {
+      break;
+    }
+    memory.at(cnt++) = std::abs(word);
+  }
+  std::println("*** Program loading completed ***\n*** Program execution begins ***");
+}
 
 int main() {
+
+  printWelcomeMsg();
+
   enum class OperationCodes {
     // Input/output operations:
     read = 10,
@@ -117,3 +151,16 @@ int main() {
   }
   
 }
+
+
+/*
+"***           Welcome to Simpletron           ***",
+"***                                           ***",
+"*** Please enter your program one instruction ***",
+"*** (or data word) at a time. I will type the ***",
+"*** location number and a question mark (?).  ***",
+"*** You then type the word for that location. ***",
+"*** Type the sentinel -99999 to stop entering ***",
+"*** your program.                             ***"
+
+*/

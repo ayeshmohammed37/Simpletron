@@ -9,3 +9,12 @@ their sum.
 05: 4000  branch to 00
 06: 1109  write sum
 07: 4300  halt
+
+
+b) Use a counter-controlled loop to read seven numbers, some positive and some
+negative. Compute and print their average.
+
+cnt = 7
+while (cnt != 0) {
+  cin >> num
+}
