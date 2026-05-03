@@ -84,29 +84,16 @@ void load(std::vector<int>& memory) {
 
 
 // check for 
-//  - divide by zero
-//  - invalid operation code
 //  - accumulator overflow
 // print error msg
 /*
     *** Attempt to divide by zero                  ***
     *** Simpletron execution abnormally terminated ***
 */
-void execute(std::vector<int>& memory) {
+void execute(std::vector<int>& memory, int& accumulator, int& instructionCounter, int& instructionRegister, int& operationCode, int& operand) {
+
   std::println("*** Program execution begins ***");
-
-  // accumulatorRegster
-  int accumulator{0};
-  // number of memory location containing instruction being performed
-  int instructionCounter{0}; // 00..99
-  // store the next instruction to be performed then initialize operand and operationcode
-  int instructionRegister{0};
-  // operation currently being performed (instruction word's left two digits)
-  int operationCode{0};
-  // store number of memory location on which the current instruction operates
-  // instruction's rightmost two digit currtently performed
-  int operand{0};
-
+  
   while (instructionCounter < 100) {
     // instruction execution cycle
     // fetch the next instruction to be performed
@@ -155,6 +142,10 @@ void execute(std::vector<int>& memory) {
         break;
       // divite operation
       case 32:
+        // division by zero
+        if (memory.at(operand) == 0) {
+          throw std::runtime_error("Attempt to divide by zero");
+        }
         accumulator /= memory.at(operand);
         instructionCounter++;
         break;
@@ -184,14 +175,15 @@ void execute(std::vector<int>& memory) {
         instructionCounter = 101;
         break;
 
-      // default:
-      //   std::println("operation code({}): not defined", std::to_underlying(operation));
-      //   i = 101;
-      //   break;
+      // invalid operation
+      default:
+        throw std::invalid_argument("Operation code not Defined");
     }
 
   }
+
 }
+
 
 int main() {
   // simpletron's memory
@@ -214,9 +206,15 @@ int main() {
   // loading sml program into memory
   load(memory);
   
-  // ececute sml program currently loadded in the memory
-  execute(memory);
-  
+  try {
+    // ececute sml program currently loadded in the memory
+    execute(memory, accumulator, instructionCounter, instructionRegister, operationCode, operand);
+  }
+  catch (std::exception& ex) {
+    std::println("*** {:<42} ***", ex.what());
+    std::println("*** Simpletron execution abnormally terminated ***");
+  }
+
   // display content of memory and all registers
   printDumpMsg(memory, accumulator, instructionCounter, instructionRegister, operationCode, operand);
    
