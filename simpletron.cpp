@@ -175,7 +175,6 @@ void execute(std::vector<int>& memory, int& accumulator, int& instructionCounter
       // halt the program
       case 43:
         std::println("*** Simpletron execution terminated ***");
-        printDumpMsg(memory, accumulator, instructionCounter, instructionRegister, operationCode, operand);
         instructionCounter = 101;
         break;
 
