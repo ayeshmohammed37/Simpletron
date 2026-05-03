@@ -56,16 +56,28 @@ void load(std::vector<int>& memory) {
   // word represent instruction that user input
   int word{0};  
   
+  // loading phase 
+  // loading instructions to memory and stop at instruction number 100
   int cnt{0};
   while (cnt < 100) {
+    // prompt user to enter instruction
     std::print("{:0>2d} ? ", cnt);
     std::cin >> word;
 
+    // check for stop loading
     if (word == -99999) {
       break;
+    } 
+    // check if instruction is valid
+    if (word > 9999 || word < -9999) {
+      std::println("Your numner is out of range.\nEnter number in range [-9999, 9999].");
+      continue;
     }
+
+    // add instruction to the memory
     memory.at(cnt++) = std::abs(word);
   }
+  // loading phase completed
   std::println("*** Program loading completed ***");
 }
 
