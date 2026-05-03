@@ -91,7 +91,6 @@ void execute(std::vector<int>& memory) {
 
   while (instructionCounter < 100) {
     // instruction execution cycle
-    
     // fetch the next instruction to be performed
     instructionRegister = memory.at(instructionCounter);
     
@@ -100,69 +99,77 @@ void execute(std::vector<int>& memory) {
     operationCode = instructionRegister / 100;
 
     switch (operationCode) {
+      // input/output operations
+      // read operation
       case 10:
-        // std::cout << "?";
+        std::cout << "?";
         std::cin >> memory.at(operand);
-        // i++;
-        // break;
-
+        instructionCounter++;
+        break;
+      // write operation
       case 11 :
         std::println("{}", memory.at(operand));
-        // i++;
-        // break;
-      
+        instructionCounter++;
+        break;
+
+      // load/store operations
+      // load operation
       case 20 :
         accumulator = memory.at(operand);
-        i++;
+        instructionCounter++;
         break;
-
+      // store operation
       case 21 :
         memory.at(operand) = accumulator;
-        i++;
+        instructionCounter++;
         break;
-
+      
+      // Arithmetic operations
+      // add operation
       case 30:
         accumulator += memory.at(operand);
-        i++;
+        instructionCounter++;
         break;
-
+      // subtract operation
       case 31:
         accumulator -= memory.at(operand);
-        i++;
+        instructionCounter++;
         break;
-
+      // divite operation
       case 32:
         accumulator /= memory.at(operand);
-        i++;
+        instructionCounter++;
         break;
-        
+      // multiply operation
       case 33:
         accumulator *= memory.at(operand);
-        i++;
+        instructionCounter++;
         break;
         
+      // Transfer-of-control Operation
+      // branch
       case 40:
-        i = operand;
+        instructionCounter = operand;
         break;
-
+      // branchNeg
       case 41:
-        i = accumulator < 0 ? operand : i + 1;
+        instructionCounter = accumulator < 0 ? operand : instructionCounter + 1;
         break;
-
+      // branchZero
       case 42:
-        i = accumulator == 0 ? operand : i + 1;
+        instructionCounter = accumulator == 0 ? operand : instructionCounter + 1;
         break;
-        
+      // halt the program
       case 43:
         std::println("*** Simpletron execution terminated ***");
-        printDumpMsg();
-        // i = 101;
-        // break;
-
-      default:
-        std::println("operation code({}): not defined", std::to_underlying(operation));
-        i = 101;
+        printDumpMsg(memory, accumulator, instructionCounter, instructionRegister, operationCode, operand);
+        instructionCounter = 101;
         break;
+
+      // default:
+      //   std::println("operation code({}): not defined", std::to_underlying(operation));
+      //   i = 101;
+      //   break;
     }
 
   }
