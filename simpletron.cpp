@@ -82,15 +82,15 @@ void load(std::vector<int>& memory) {
   std::println("*** Program loading completed ***");
 }
 
-
-// check for 
-//  - accumulator overflow
-// print error msg
-/*
-    *** Attempt to divide by zero                  ***
-    *** Simpletron execution abnormally terminated ***
-*/
 void execute(std::vector<int>& memory, int& accumulator, int& instructionCounter, int& instructionRegister, int& operationCode, int& operand) {
+
+  auto checkAccumulator{
+    [] (const int& acc) {
+      if (acc > 9999 || acc < -9999) {
+          throw std::out_of_range("accumulator overflow");
+        }
+    }
+  };
 
   std::println("*** Program execution begins ***");
   
@@ -133,11 +133,13 @@ void execute(std::vector<int>& memory, int& accumulator, int& instructionCounter
       // add operation
       case 30:
         accumulator += memory.at(operand);
+        checkAccumulator(accumulator);
         instructionCounter++;
         break;
       // subtract operation
       case 31:
         accumulator -= memory.at(operand);
+        checkAccumulator(accumulator);
         instructionCounter++;
         break;
       // divite operation
@@ -147,11 +149,13 @@ void execute(std::vector<int>& memory, int& accumulator, int& instructionCounter
           throw std::runtime_error("Attempt to divide by zero");
         }
         accumulator /= memory.at(operand);
+        checkAccumulator(accumulator);
         instructionCounter++;
         break;
       // multiply operation
       case 33:
         accumulator *= memory.at(operand);
+        checkAccumulator(accumulator);
         instructionCounter++;
         break;
         
@@ -177,7 +181,7 @@ void execute(std::vector<int>& memory, int& accumulator, int& instructionCounter
 
       // invalid operation
       default:
-        throw std::invalid_argument("Operation code not Defined");
+        throw std::invalid_argument("Invalid Operation code");
     }
 
   }
