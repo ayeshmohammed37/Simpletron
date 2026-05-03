@@ -22,6 +22,35 @@ void printWelcomeMsg() {
   std::println("{}", msg);
 }
 
+void printDumpMsg(const std::vector<int>& memory, const int& accumulator, const int& instructionCounter, 
+  const int& instructionRegister, const int& operationCode, const int& operand) {
+
+    // print registers content
+    std::println("Registers:");
+    std::println("{:<30}{:+05d}", "accumulator", accumulator);
+    std::println("{:<33}{:02d}", "instructionCounter", instructionCounter);
+    std::println("{:<30}{:+05d}", "instructionRegister", instructionRegister);
+    std::println("{:<33}{:02d}", "operationCode", operationCode);
+    std::println("{:<33}{:02d}", "operand", operand);
+    
+    // print memory content
+    std::println("MEMORY:");
+    std::print("  ");
+    for (int i{0}; i < 10; i++) {
+      std::print("{:>7}", i);
+    }
+    std::println();
+    for (int i{0}; i < 10; i++) {
+      std::print("{:>2d}", i * 10); 
+
+      for (int j{i * 10}; j < ((i * 10) + 10); j++) {
+        std::print("  {:+05d}", memory.at(j));
+      }
+      std::println();
+    }
+
+}
+
 // loading SML instructions into memeory
 void load(std::vector<int>& memory) {
   // word represent instruction that user input
@@ -62,8 +91,80 @@ void execute(std::vector<int>& memory) {
 
   while (instructionCounter < 100) {
     // instruction execution cycle
+    
     // fetch the next instruction to be performed
     instructionRegister = memory.at(instructionCounter);
+    
+    // extract operationCode and operand from instructionRegister
+    operand = instructionRegister % 100;
+    operationCode = instructionRegister / 100;
+
+    switch (operationCode) {
+      case 10:
+        // std::cout << "?";
+        std::cin >> memory.at(operand);
+        // i++;
+        // break;
+
+      case 11 :
+        std::println("{}", memory.at(operand));
+        // i++;
+        // break;
+      
+      case 20 :
+        accumulator = memory.at(operand);
+        i++;
+        break;
+
+      case 21 :
+        memory.at(operand) = accumulator;
+        i++;
+        break;
+
+      case 30:
+        accumulator += memory.at(operand);
+        i++;
+        break;
+
+      case 31:
+        accumulator -= memory.at(operand);
+        i++;
+        break;
+
+      case 32:
+        accumulator /= memory.at(operand);
+        i++;
+        break;
+        
+      case 33:
+        accumulator *= memory.at(operand);
+        i++;
+        break;
+        
+      case 40:
+        i = operand;
+        break;
+
+      case 41:
+        i = accumulator < 0 ? operand : i + 1;
+        break;
+
+      case 42:
+        i = accumulator == 0 ? operand : i + 1;
+        break;
+        
+      case 43:
+        std::println("*** Simpletron execution terminated ***");
+        printDumpMsg();
+        // i = 101;
+        // break;
+
+      default:
+        std::println("operation code({}): not defined", std::to_underlying(operation));
+        i = 101;
+        break;
+    }
+
   }
 }
 
