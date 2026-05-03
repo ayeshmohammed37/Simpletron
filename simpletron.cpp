@@ -27,10 +27,9 @@ void load(std::vector<int>& memory) {
   // word represent instruction that user input
   int word{0};  
   
-  // 
   int cnt{0};
   while (cnt < 100) {
-    std::print("{:02d} ? ", cnt);
+    std::print("{:0>2d} ? ", cnt);
     std::cin >> word;
 
     if (word == -99999) {
@@ -38,11 +37,34 @@ void load(std::vector<int>& memory) {
     }
     memory.at(cnt++) = std::abs(word);
   }
-  std::println("*** Program loading completed ***\n*** Program execution begins ***");
+  std::println("*** Program loading completed ***");
 }
 
 void execute(std::vector<int>& memory) {
+  std::println("*** Program execution begins ***");
+  // accumulator
+  // instructionCounter: number of memory location(00..99) containing inst being performed
+  // operationCode
+  // operand "number of memory location on which the current instruction operates
+  // instructionRegister
 
+  // accumulatorRegster
+  int accumulator{0};
+  // number of memory location containing instruction being performed
+  int instructionCounter{0}; // 00..99
+  // store the next instruction to be performed then initialize operand and operationcode
+  int instructionRegister{0};
+  // operation currently being performed (instruction word's left two digits)
+  int operationCode{0};
+  // store number of memory location on which the current instruction operates
+  // instruction's rightmost two digit currtently performed
+  int operand{0};
+
+  while (instructionCounter < 100) {
+    // instruction execution cycle
+    // fetch the next instruction to be performed
+    instructionRegister = memory.at(instructionCounter);
+  }
 }
 
 int main() {
