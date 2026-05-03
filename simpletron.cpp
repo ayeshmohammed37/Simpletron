@@ -3,6 +3,7 @@
 #include <vector>
 #include <utility>
 #include <string>
+#include <stdexcept>
 
 // printing welcome msg
 void printWelcomeMsg() {
@@ -81,13 +82,18 @@ void load(std::vector<int>& memory) {
   std::println("*** Program loading completed ***");
 }
 
+
+// check for 
+//  - divide by zero
+//  - invalid operation code
+//  - accumulator overflow
+// print error msg
+/*
+    *** Attempt to divide by zero                  ***
+    *** Simpletron execution abnormally terminated ***
+*/
 void execute(std::vector<int>& memory) {
   std::println("*** Program execution begins ***");
-  // accumulator
-  // instructionCounter: number of memory location(00..99) containing inst being performed
-  // operationCode
-  // operand "number of memory location on which the current instruction operates
-  // instructionRegister
 
   // accumulatorRegster
   int accumulator{0};
@@ -109,7 +115,7 @@ void execute(std::vector<int>& memory) {
     // extract operationCode and operand from instructionRegister
     operand = instructionRegister % 100;
     operationCode = instructionRegister / 100;
-
+    
     switch (operationCode) {
       // input/output operations
       // read operation
@@ -188,32 +194,31 @@ void execute(std::vector<int>& memory) {
 }
 
 int main() {
-  enum class OperationCodes {
-    // Input/output operations:
-    read = 10,
-    write = 11,
-
-    // Load/store operations:
-    load = 20,
-    store = 21,
-
-    // Arithmetic operations:
-    add = 30,
-    subtract = 31,
-    divide = 32,
-    multiply = 33,
-
-    // Transfer-of-control operations:
-    branch = 40,
-    branchNeg = 41,
-    branchZero = 42,
-    halt = 43,
-  };
-  
+  // simpletron's memory
   std::vector<int> memory(100, 0);
+  // accumulatorRegster
+  int accumulator{0};
+  // number of memory location containing instruction being performed
+  int instructionCounter{0}; // 00..99
+  // store the next instruction to be performed then initialize operand and operationcode
+  int instructionRegister{0};
+  // operation currently being performed (instruction word's left two digits)
+  int operationCode{0};
+  // store number of memory location on which the current instruction operates
+  // instruction's rightmost two digit currtently performed
+  int operand{0};
 
+  // print welcome to simpletron msg
   printWelcomeMsg();
+  
+  // loading sml program into memory
   load(memory);
+  
+  // ececute sml program currently loadded in the memory
   execute(memory);
+  
+  // display content of memory and all registers
+  printDumpMsg(memory, accumulator, instructionCounter, instructionRegister, operationCode, operand);
    
+
 }
