@@ -50,8 +50,69 @@ class Program
             }
             else
             {
+                Console.WriteLine("loading program ended");
                 i = 101;
             }
+        }
+
+        // Execute sml program that loaded in memory
+        int j = 0;
+        while (j < 100)
+        {
+            int ins = memory[j];
+            int operation = Math.Abs(ins / 100);
+            int location = Math.Abs(ins % 100);
+
+            switch (operation)
+            {
+                case 10:
+                    Console.Write("?");
+                    memory[location] = int.Parse(Console.ReadLine());
+                    j++;
+                    break;
+                case 11:
+                    Console.WriteLine(memory[location]);
+                    j++;
+                    break;
+                case 20:
+                    accumulator = memory[location];
+                    j++;
+                    break;
+                case 21:
+                    memory[location] = accumulator;
+                    j++;
+                    break;
+                case 30:
+                    accumulator += memory[location];
+                    j++;
+                    break;
+                case 31:
+                    accumulator -= memory[location];
+                    j++;
+                    break;
+                case 32:
+                    accumulator /= memory[location];
+                    j++;
+                    break;
+                case 33:
+                    accumulator *= memory[location];
+                    j++;
+                    break;
+                case 40:
+                    j = location;
+                    break;
+                case 41:
+                    j = accumulator < 0? location : j + 1;
+                    break;
+                case 42:
+                    j = accumulator == 0? location : j + 1;
+                    break;
+                case 43:
+                default:
+                    j = 101;
+                    break;
+            }
+            
         }
 
     }
