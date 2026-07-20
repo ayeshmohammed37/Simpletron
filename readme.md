@@ -35,3 +35,4 @@ running an SML program:
 ---------------------------
 ToDo
 - add validation for the instruction from the user input
+- Using Enum OperationCodes insted of numbers
