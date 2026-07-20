@@ -31,3 +31,7 @@ Simpletron Components
 
 running an SML program:
     1- load program into memory
+
+---------------------------
+ToDo
+- add validation for the instruction from the user input
