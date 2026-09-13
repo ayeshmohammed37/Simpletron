@@ -50,6 +50,7 @@ class Program
 
         // Execute sml program that loaded in memory
         instructionCounter = 0;
+        Console.WriteLine("*** Program execution begins ***");
         while (instructionCounter < 100)
         {
             //  instruction execution cycle
@@ -57,13 +58,11 @@ class Program
             operand = instructionRegister % 100;
             operationCode = (OperationCode)(instructionRegister / 100);
 
-            Console.WriteLine("*** Program execution begins ***");
-
             switch (operationCode)
             {
                 // read
                 case OperationCode.Read: 
-                    Console.Write("?? ");
+                    Console.Write("? ");
                     int num = int.Parse(Console.ReadLine());
                     memory[operand] = num;
                     instructionCounter++;
@@ -147,10 +146,11 @@ class Program
         for (int i = 0; i < 10; i++)
         {
             Console.Write($"{i*10, 2}");
-            for (int j = 0; j < 10; j++)
+            for (int j = i*10; j < (i*10+10); j++)
             {
                 Console.Write($"  +{memory[j]:0000}");
             }
+            Console.WriteLine();
         }
         
     }
