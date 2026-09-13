@@ -4,24 +4,46 @@ class Program
 {
     static void Main(string[] args)
     {
-        // 100-word memory for sml instructions
+         // 100-word memory for sml instructions
         int[] memory = new int[100];
         // special register to store information before simpletron uses it in calculations
-        int accumulator = 0;
+        int accumulator = default;
+        // store the number of the memory location (00 to 99) containing the instruction being performed
+        int instructionCounter = default;
+        // store the operation currently being performed (the instruction word’s left two digits)
+        OperationCode operationCode = default;
+        // store the number of the memory location on which the current instruction operates.
+        int operand = default;
+        // the next instruction to be performed from memory 
+        int instructionRegister = default;
+
+
+        // Welcome to Simpletron
+        string welcomeMsg =
+            "***            Welcome to Simpletron          ***\n" + 
+            "***                                           ***\n" + 
+            "*** Please enter your program one instruction ***\n" + 
+            "*** (or data word) at a time. I will type the ***\n" + 
+            "*** location number and a question mark (?).  ***\n" + 
+            "*** You then type the word for that location. ***\n" + 
+            "*** Type the sentinel -99999 to stop entering ***\n" + 
+            "*** your program.                             ***";
+
+        Console.WriteLine(welcomeMsg);       
 
         // 1- load sml instructions to the memory
-        Console.WriteLine("Enter instructions within [-9999..9999].\nEnter any value out of range to exit");
+        // Console.WriteLine("Enter instructions within [-9999..9999].\nEnter any value out of range to exit");
 
         int instruction = default;
         int i = 0;
         while (i < 100)
         {
-            Console.Write("> ");
+            Console.Write($"{i:00} ? ");
             instruction = Math.Abs(int.Parse(Console.ReadLine()));
 
             if (instruction >= 10000)
             {
-                Console.WriteLine("loading program ended");
+                Console.WriteLine("*** Program loading completed ***");
                 i = 101;
             }
             else
@@ -37,6 +59,8 @@ class Program
             instruction = memory[i];
             int location = instruction % 100;
             int operation = instruction / 100;
+
+            Console.WriteLine("*** Program execution begins ***");
 
             switch (operation)
             {
@@ -103,28 +127,4 @@ class Program
             }
         }
     }
-}
-
-
-enum OperationCodes
-{
-    // Input/output operations:
-    read = 10,
-    write = 11,
-
-    // Load/store operations:
-    load = 20,
-    store = 21,
-
-    // Arithmetic operations:
-    add = 30,
-    subtract = 31,
-    divide = 32,
-    multiply = 33,
-
-    // Transfer-of-control operations:
-    branch = 40,
-    branchNeg = 41,
-    branchZero = 42,
-    halt = 43
 }
