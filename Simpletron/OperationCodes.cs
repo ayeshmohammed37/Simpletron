@@ -3,22 +3,22 @@ namespace Simpletron;
 enum OperationCode
 {
     // Input/output operations:
-    read = 10,
-    write = 11,
+    Read = 10,
+    Write = 11,
 
     // Load/store operations:
-    load = 20,
-    store = 21,
+    Load = 20,
+    Store = 21,
 
     // Arithmetic operations:
-    add = 30,
-    subtract = 31,
-    divide = 32,
-    multiply = 33,
+    Add = 30,
+    Subtract = 31,
+    Divide = 32,
+    Multiply = 33,
 
     // Transfer-of-control operations:
-    branch = 40,
-    branchNeg = 41,
-    branchZero = 42,
-    halt = 43
+    Branch = 40,
+    BranchNeg = 41,
+    BranchZero = 42,
+    Halt = 43
 }

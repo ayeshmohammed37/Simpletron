@@ -32,99 +32,101 @@ class Program
         Console.WriteLine(welcomeMsg);       
 
         // 1- load sml instructions to the memory
-        // Console.WriteLine("Enter instructions within [-9999..9999].\nEnter any value out of range to exit");
-
-        int instruction = default;
-        int i = 0;
-        while (i < 100)
+        while (instructionCounter < 100)
         {
-            Console.Write($"{i:00} ? ");
-            instruction = Math.Abs(int.Parse(Console.ReadLine()));
+            Console.Write($"{instructionCounter:00} ? ");
+            instructionRegister = Math.Abs(int.Parse(Console.ReadLine()));
 
-            if (instruction >= 10000)
+            if (instructionRegister >= 10000)
             {
                 Console.WriteLine("*** Program loading completed ***");
-                i = 101;
+                instructionCounter = 101;
             }
             else
             {
-                memory[i++] = instruction;
+                memory[instructionCounter++] = instructionRegister;
             }
         }
 
         // Execute sml program that loaded in memory
-        i = 0;
-        while (i < 100)
+        instructionCounter = 0;
+        while (instructionCounter < 100)
         {
-            instruction = memory[i];
-            int location = instruction % 100;
-            int operation = instruction / 100;
+            //  instruction execution cycle
+            instructionRegister = memory[instructionCounter];
+            operand = instructionRegister % 100;
+            operationCode = (OperationCode)(instructionRegister / 100);
 
             Console.WriteLine("*** Program execution begins ***");
 
-            switch (operation)
+            switch (operationCode)
             {
                 // read
-                case 10: 
+                case OperationCode.Read: 
                     Console.Write("?? ");
                     int num = int.Parse(Console.ReadLine());
-                    memory[location] = num;
-                    i++;
+                    memory[operand] = num;
+                    instructionCounter++;
                     break;
                 // write
-                case 11: 
-                    Console.WriteLine(memory[location]);
-                    i++;
+                case OperationCode.Write: 
+                    Console.WriteLine(memory[operand]);
+                    instructionCounter++;
                     break;
                 // load
-                case 20:
-                    accumulator = memory[location];
-                    i++;
+                case OperationCode.Load:
+                    accumulator = memory[operand];
+                    instructionCounter++;
                     break;
                 // store
-                case 21:
-                    memory[location] = accumulator;
-                    i++;
+                case OperationCode.Store:
+                    memory[operand] = accumulator;
+                    instructionCounter++;
                     break;
                 // Add
-                case 30:
-                    accumulator += memory[location];
-                    i++;
+                case OperationCode.Add:
+                    accumulator += memory[operand];
+                    instructionCounter++;
                     break;
                 // Subtract
-                case 31:
-                    accumulator -= memory[location];
-                    i++;
+                case OperationCode.Subtract:
+                    accumulator -= memory[operand];
+                    instructionCounter++;
                     break;
                 // Divide
-                case 32:
-                    accumulator /= memory[location];
-                    i++;
+                case OperationCode.Divide:
+                    accumulator /= memory[operand];
+                    instructionCounter++;
                     break;
                 // Multiply
-                case 33:
-                    accumulator *= memory[location];
-                    i++;
+                case OperationCode.Multiply:
+                    accumulator *= memory[operand];
+                    instructionCounter++;
                     break;
                 // Branch
-                case 40:
-                    i = location;
+                case OperationCode.Branch:
+                    instructionCounter = operand;
                     break;
                 // BranchNeg
-                case 41:
-                    i = accumulator < 0 ? location : i + 1;
+                case OperationCode.BranchNeg:
+                    instructionCounter = accumulator < 0 ? operand : instructionCounter + 1;
                     break;
                 // BranchZero
-                case 42:
-                    i = accumulator == 0 ? location : i + 1;
+                case OperationCode.BranchZero:
+                    instructionCounter = accumulator == 0 ? operand : instructionCounter + 1;
                     break;
                 // Halt
-                case 43:
-                    i = 101;
+                case OperationCode.Halt:
+                    Console.WriteLine("*** Simpletron execution terminated ***");
+                    instructionCounter = 101;
                     break;
                 default:
-                    throw new InvalidOperationException($"Operation-Code {operation} Not valid");
+                    Console.WriteLine($"Operation-Code {operationCode} Not valid");
+                    instructionCounter = 101;
+                    break;
             }
         }
+
+        // 
     }
 }
