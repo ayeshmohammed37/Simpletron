@@ -127,6 +127,31 @@ class Program
             }
         }
 
-        // 
+        // prints the name and contents of each register and the complete contents of all 100 memory locations. dump()
+        Console.WriteLine("REGISTERS:");
+        Console.WriteLine($"accumulator\t\t{accumulator:0000}");
+        Console.WriteLine($"instructionCounter\t\t{instructionCounter:00}");
+        Console.WriteLine($"instructionRegister\t\t{instructionRegister:0000}");
+        Console.WriteLine($"operationCode\t\t{(int)operationCode:00}");
+        Console.WriteLine($"operand\t\t{operand:00}");
+
+        Console.WriteLine("\nMEMORY:");
+        // header
+        Console.Write("  ");
+        for (int i = 0; i < 10; i++)
+        {
+            Console.Write($"{i,7}");
+        }
+        Console.WriteLine();
+        // memory blocks
+        for (int i = 0; i < 10; i++)
+        {
+            Console.Write($"{i*10, 2}");
+            for (int j = 0; j < 10; j++)
+            {
+                Console.Write($"  +{memory[j]:0000}");
+            }
+        }
+        
     }
 }
