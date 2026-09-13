@@ -1,0 +1,93 @@
+# SML programs
+
+// Add two numbers and print the result to the screen
+00   +1007    (Read A)
+01   +1008    (Read B)
+02   +2007    (Load A)
+03   +3008    (Add B)
+04   +2109    (Store C)
+05   +1109    (Write C)
+06   +4300    (Halt)
+07   +0000    (Variable A)
+08   +0000    (Variable B)
+09   +0000    (Result C)
+
+// Determines the Largest of Two Values
+00   +1009    (Read A)
+01   +1010    (Read B)
+02   +2009    (Load A)
+03   +3110    (Subtract B)
+04   +4107    (Branch negative to 07)
+05   +1109    (Write A)
+06   +4300    (Halt)
+07   +1110    (Write B)
+08   +4300    (Halt)
+09   +0000    (Variable A)
+10   +0000    (Variable B)
+
+// Use a sentinel-controlled loop to read positive integers, then compute and print their sum.
+00   +1010   READ into 10      Read user input into Temp
+01   +2010   LOAD 10           Load Temp into accumulator
+02   +4106   BRANCHNEG to 06   If Temp < 0, branch to Print Phase
+03   +3009   ADD 09            Add Temp to Sum
+04   +2109   STORE 09          Store accumulator back into Sum
+05   +4000   BRANCH to 00      Jump back to start of the loop
+06   +1109   WRITE 09          Print Sum to screen
+07   +4300   HALT              Terminate execution
+08   +0000                     (Unused)
+09   +0000                     Variable: Sum (Initial value: 0)
+10   +0000                     Variable: Temp Input
+
+// Use a counter-controlled loop to read seven numbers, some positive and some
+// negative. Compute and print their average.
+Location   Instruction  Opcode / Meaning    Comment
+00         +1020        READ into 20        Read user input into Temp
+01         +2017        LOAD 17             Load Sum into accumulator
+02         +3020        ADD 20              Add Temp to Sum
+03         +2117        STORE 17            Store new Sum
+04         +2018        LOAD 18             Load Counter into accumulator
+05         +3119        SUBTRACT 19         Subtract 1 from Counter
+06         +2118        STORE 18            Store decremented Counter
+07         +4209        BRANCHZERO to 09    If Counter == 0, branch to Calculate Phase
+08         +4000        BRANCH to 00        Jump back to loop start
+09         +2017        LOAD 17             Load total Sum into accumulator
+10         +3221        DIVIDE 21           Divide Sum by 7
+11         +2117        STORE 17            Store final average back into Sum
+12         +1117        WRITE 17            Print the Average
+13         +4300        HALT                Terminate execution
+17         +0000                            Variable: Sum
+18         +0007                            Variable: Counter (Start: 7)
+19         +0001                            Constant: 1
+20         +0000                            Variable: Temp Input
+21         +0007                            Constant: 7
+
+// Read a series of numbers. Determine and print the largest number. The first
+// number read indicates how many numbers should be processed.
+Location  Instruction  Opcode / Meaning      Comment
+00        +1023        READ into 23          Read total series count (N)
+01        +2023        LOAD 23               Load N into accumulator
+02        +4222        BRANCHZERO to 22      "If N == 0, HALT safely"
+03        +1024        READ into 24          Read first number directly into Largest
+04        +2023        LOAD 23               Load N
+05        +3126        SUBTRACT 26           Subtract 1 from N
+06        +2123        STORE 23              Store updated N
+07        +4220        BRANCHZERO to 20      "If N == 0, jump to Print Phase"
+08        +1025        READ into 25          [LOOP] Read next number into Temp
+09        +2024        LOAD 24               Load Largest
+10        +3125        SUBTRACT 25           Compute: Largest - Temp
+11        +4117        BRANCHNEG to 17       "If Temp > Largest, jump to Update Phase"
+12        +2023        LOAD 23               [RESUME] Load N
+13        +3126        SUBTRACT 26           Subtract 1 from N
+14        +2123        STORE 23              Store decremented N
+15        +4220        BRANCHZERO to 20      "If N == 0, jump to Print Phase"
+16        +4008        BRANCH to 08          Jump back to loop start
+17        +2025        LOAD 25               [UPDATE] Load Temp
+18        +2124        STORE 24              Store Temp as new Largest
+19        +4012        BRANCH to 12          Jump back to Resume Phase
+20        +1124        WRITE 24              [PRINT] Output the Largest number
+21        +4300        HALT                  Terminate normal execution
+22        +4300        HALT                  Terminate early execution
+23        +0000                              Variable: Count (N)
+24        +0000                              Variable: Largest Number
+25        +0000                              Variable: Temp Input
+26        +0001                              Constant: 1
