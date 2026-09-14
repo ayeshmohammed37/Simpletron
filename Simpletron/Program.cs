@@ -37,7 +37,7 @@ class Program
             Console.Write($"{instructionCounter:00} ? ");
             instructionRegister = Math.Abs(int.Parse(Console.ReadLine()));
 
-            if (instructionRegister >= 10000)
+            if (instructionRegister > 9999)
             {
                 Console.WriteLine("*** Program loading completed ***");
                 instructionCounter = 101;
@@ -154,4 +154,5 @@ class Program
         }
         
     }
+
 }
