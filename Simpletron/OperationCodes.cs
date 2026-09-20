@@ -1,6 +1,6 @@
 namespace Simpletron;
 
-enum OperationCode
+public enum OperationCode
 {
     // Input/output operations:
     Read = 10,
