@@ -13,6 +13,16 @@ public partial class SimpletronSimulator
             operand = instructionRegister % 100;
             operationCode = (OperationCode)(instructionRegister / 100);
 
+            if (operand > 99)
+            {
+                throw new Exception($"operand {operand}: out of memory range, (00..99)");
+            }
+            
+            if (!operationCode.IsValid())
+            {
+                throw new Exception($"OperationCode({operationCode}) not valid.");
+            }
+
             switch (operationCode)
             {
                 // read
