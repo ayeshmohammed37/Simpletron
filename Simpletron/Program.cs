@@ -4,21 +4,7 @@ class Program
 {
     static void Load(ref int instructionCounter, ref int instructionRegister, int[] memory)
     {
-        while (instructionCounter < 100)
-        {
-            Console.Write($"{instructionCounter:00} ? ");
-            instructionRegister = Math.Abs(int.Parse(Console.ReadLine()));
-
-            if (instructionRegister > 9999)
-            {
-                Console.WriteLine("*** Program loading completed ***");
-                instructionCounter = 101;
-            }
-            else
-            {
-                memory[instructionCounter++] = instructionRegister;
-            }
-        }        
+                
     }
 
     static void Execute(ref int instructionCounter, ref int instructionRegister, ref int operand, ref OperationCode operationCode, ref int accumulator, int[] memory)
