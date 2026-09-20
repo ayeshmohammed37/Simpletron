@@ -2,6 +2,25 @@
 
 class Program
 {
+    static void Load(int instructionCounter, int instructionRegister, int[] memory)
+    {
+        while (instructionCounter < 100)
+        {
+            Console.Write($"{instructionCounter:00} ? ");
+            instructionRegister = Math.Abs(int.Parse(Console.ReadLine()));
+
+            if (instructionRegister > 9999)
+            {
+                Console.WriteLine("*** Program loading completed ***");
+                instructionCounter = 101;
+            }
+            else
+            {
+                memory[instructionCounter++] = instructionRegister;
+            }
+        }        
+    }
+
     static void Main(string[] args)
     {
          // 100-word memory for sml instructions
@@ -32,21 +51,7 @@ class Program
         Console.WriteLine(welcomeMsg);       
 
         // 1- load sml instructions to the memory
-        while (instructionCounter < 100)
-        {
-            Console.Write($"{instructionCounter:00} ? ");
-            instructionRegister = Math.Abs(int.Parse(Console.ReadLine()));
-
-            if (instructionRegister > 9999)
-            {
-                Console.WriteLine("*** Program loading completed ***");
-                instructionCounter = 101;
-            }
-            else
-            {
-                memory[instructionCounter++] = instructionRegister;
-            }
-        }
+        Load(instructionCounter, instructionRegister, memory);
 
         // Execute sml program that loaded in memory
         instructionCounter = 0;
