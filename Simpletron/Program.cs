@@ -132,21 +132,6 @@ class Program
 
     static void Main(string[] args)
     {
-         // 100-word memory for sml instructions
-        int[] memory = new int[100];
-        // special register to store information before simpletron uses it in calculations
-        int accumulator = default;
-        // store the number of the memory location (00 to 99) containing the instruction being performed
-        int instructionCounter = default;
-        // store the operation currently being performed (the instruction word’s left two digits)
-        OperationCode operationCode = default;
-        // store the number of the memory location on which the current instruction operates.
-        int operand = default;
-        // the next instruction to be performed from memory 
-        int instructionRegister = default;
-
-
-        // Welcome to Simpletron
         string welcomeMsg =
             "***            Welcome to Simpletron          ***\n" + 
             "***                                           ***\n" + 
@@ -157,17 +142,10 @@ class Program
             "*** Type the sentinel -99999 to stop entering ***\n" + 
             "*** your program.                             ***";
 
-        Console.WriteLine(welcomeMsg);       
+        Console.WriteLine(welcomeMsg);
 
-        // 1- load sml instructions to the memory
-        Load(ref instructionCounter, ref instructionRegister, memory);
-
-        // 2- Execute sml program that loaded in memory
-        Execute(ref instructionCounter, ref instructionRegister, ref operand, ref operationCode, ref accumulator, memory);
-        
-        // 3- prints the name and contents of each register and the complete contents of all 100 memory locations. dump()
-        Dump(in accumulator, in instructionCounter, in instructionRegister, in operationCode, in operand, memory);
-        
+        SimpletronSimulator simulator = new SimpletronSimulator();
+        simulator.Run();        
     }
 
 }
