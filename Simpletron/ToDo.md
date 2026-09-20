@@ -1,7 +1,5 @@
 # Modifications to the Simpletron Simulator (ex: 7.11)
 
-- implement load(), execute(), dump()
-- Handle Errors: accumulator overflow(out of range[9999..-9999]), divide by zero, false operation code
 - load sml prg from a file
 
 a) Extend the Simpletron Simulator’s memory to contain 1000 memory locations
