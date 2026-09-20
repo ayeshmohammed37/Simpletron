@@ -2,7 +2,7 @@
 
 class Program
 {
-    static void Load(int instructionCounter, int instructionRegister, int[] memory)
+    static void Load(ref int instructionCounter, ref int instructionRegister, int[] memory)
     {
         while (instructionCounter < 100)
         {
@@ -21,7 +21,7 @@ class Program
         }        
     }
 
-    static void Execute(int instructionCounter, int instructionRegister, int operand, OperationCode operationCode, int accumulator, int[] memory)
+    static void Execute(ref int instructionCounter, ref int instructionRegister, ref int operand, ref OperationCode operationCode, ref int accumulator, int[] memory)
     {
         instructionCounter = 0;
         Console.WriteLine("*** Program execution begins ***");
@@ -131,10 +131,10 @@ class Program
         Console.WriteLine(welcomeMsg);       
 
         // 1- load sml instructions to the memory
-        Load(instructionCounter, instructionRegister, memory);
+        Load(ref instructionCounter, ref instructionRegister, memory);
 
         // 2- Execute sml program that loaded in memory
-        Execute(instructionCounter, instructionRegister, operand, operationCode, accumulator, memory);
+        Execute(ref instructionCounter, ref instructionRegister, ref operand, ref operationCode, ref accumulator, memory);
         
         // prints the name and contents of each register and the complete contents of all 100 memory locations. dump()
         Console.WriteLine("REGISTERS:");
