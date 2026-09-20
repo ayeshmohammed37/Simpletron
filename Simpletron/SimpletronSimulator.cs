@@ -24,11 +24,4 @@ public partial class SimpletronSimulator
         // 3- prints the name and contents of each register and the complete contents of all 100 memory locations. dump()
         Dump();
     }
-
-
-
-    private void Dump()
-    {
-        
-    }
 }

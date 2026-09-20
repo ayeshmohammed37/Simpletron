@@ -29,6 +29,10 @@ public partial class SimpletronSimulator
                 case OperationCode.Read:
                     Console.Write("? ");
                     int num = int.Parse(Console.ReadLine());
+                    if (num > 9999 || num < -9999)
+                    {
+                        throw new Exception($"overflow: {num} out of range (-9999...9999)");
+                    }
                     memory[operand] = num;
                     instructionCounter++;
                     break;
@@ -50,21 +54,41 @@ public partial class SimpletronSimulator
                 // Add
                 case OperationCode.Add:
                     accumulator += memory[operand];
+                    if (accumulator > 9999 || accumulator < -9999)
+                    {
+                        throw new Exception($"accumulator overflow: {accumulator} out of range (-9999...9999)");
+                    }
                     instructionCounter++;
                     break;
                 // Subtract
                 case OperationCode.Subtract:
                     accumulator -= memory[operand];
+                    if (accumulator > 9999 || accumulator < -9999)
+                    {
+                        throw new Exception($"accumulator overflow: {accumulator} out of range (-9999...9999)");
+                    }
                     instructionCounter++;
                     break;
                 // Divide
                 case OperationCode.Divide:
+                    if (memory[operand] == 0)
+                    {
+                        throw new Exception($"Cannot divide by zero");
+                    }
                     accumulator /= memory[operand];
+                    if (accumulator > 9999 || accumulator < -9999)
+                    {
+                        throw new Exception($"accumulator overflow: {accumulator} out of range (-9999...9999)");
+                    }
                     instructionCounter++;
                     break;
                 // Multiply
                 case OperationCode.Multiply:
                     accumulator *= memory[operand];
+                    if (accumulator > 9999 || accumulator < -9999)
+                    {
+                        throw new Exception($"accumulator overflow: {accumulator} out of range (-9999...9999)");
+                    }
                     instructionCounter++;
                     break;
                 // Branch
@@ -80,12 +104,8 @@ public partial class SimpletronSimulator
                     instructionCounter = accumulator == 0 ? operand : instructionCounter + 1;
                     break;
                 // Halt
-                case OperationCode.Halt:
-                    Console.WriteLine("*** Simpletron execution terminated ***");
-                    instructionCounter = 101;
-                    break;
                 default:
-                    Console.WriteLine($"Operation-Code {operationCode} Not valid");
+                    Console.WriteLine("*** Simpletron execution terminated ***");
                     instructionCounter = 101;
                     break;
             }
