@@ -2,36 +2,8 @@
 
 class Program
 {
-    static void Main(string[] args)
+    static void Load(ref int instructionCounter, ref int instructionRegister, int[] memory)
     {
-         // 100-word memory for sml instructions
-        int[] memory = new int[100];
-        // special register to store information before simpletron uses it in calculations
-        int accumulator = default;
-        // store the number of the memory location (00 to 99) containing the instruction being performed
-        int instructionCounter = default;
-        // store the operation currently being performed (the instruction word’s left two digits)
-        OperationCode operationCode = default;
-        // store the number of the memory location on which the current instruction operates.
-        int operand = default;
-        // the next instruction to be performed from memory 
-        int instructionRegister = default;
-
-
-        // Welcome to Simpletron
-        string welcomeMsg =
-            "***            Welcome to Simpletron          ***\n" + 
-            "***                                           ***\n" + 
-            "*** Please enter your program one instruction ***\n" + 
-            "*** (or data word) at a time. I will type the ***\n" + 
-            "*** location number and a question mark (?).  ***\n" + 
-            "*** You then type the word for that location. ***\n" + 
-            "*** Type the sentinel -99999 to stop entering ***\n" + 
-            "*** your program.                             ***";
-
-        Console.WriteLine(welcomeMsg);       
-
-        // 1- load sml instructions to the memory
         while (instructionCounter < 100)
         {
             Console.Write($"{instructionCounter:00} ? ");
@@ -46,9 +18,11 @@ class Program
             {
                 memory[instructionCounter++] = instructionRegister;
             }
-        }
+        }        
+    }
 
-        // Execute sml program that loaded in memory
+    static void Execute(ref int instructionCounter, ref int instructionRegister, ref int operand, ref OperationCode operationCode, ref int accumulator, int[] memory)
+    {
         instructionCounter = 0;
         Console.WriteLine("*** Program execution begins ***");
         while (instructionCounter < 100)
@@ -125,8 +99,10 @@ class Program
                     break;
             }
         }
+    }
 
-        // prints the name and contents of each register and the complete contents of all 100 memory locations. dump()
+    static void Dump(in int accumulator, in int instructionCounter, in int instructionRegister, in OperationCode operationCode, in int operand, int[] memory)
+    {
         Console.WriteLine("REGISTERS:");
         Console.WriteLine($"accumulator\t\t{accumulator:0000}");
         Console.WriteLine($"instructionCounter\t\t{instructionCounter:00}");
@@ -152,6 +128,45 @@ class Program
             }
             Console.WriteLine();
         }
+    }
+
+    static void Main(string[] args)
+    {
+         // 100-word memory for sml instructions
+        int[] memory = new int[100];
+        // special register to store information before simpletron uses it in calculations
+        int accumulator = default;
+        // store the number of the memory location (00 to 99) containing the instruction being performed
+        int instructionCounter = default;
+        // store the operation currently being performed (the instruction word’s left two digits)
+        OperationCode operationCode = default;
+        // store the number of the memory location on which the current instruction operates.
+        int operand = default;
+        // the next instruction to be performed from memory 
+        int instructionRegister = default;
+
+
+        // Welcome to Simpletron
+        string welcomeMsg =
+            "***            Welcome to Simpletron          ***\n" + 
+            "***                                           ***\n" + 
+            "*** Please enter your program one instruction ***\n" + 
+            "*** (or data word) at a time. I will type the ***\n" + 
+            "*** location number and a question mark (?).  ***\n" + 
+            "*** You then type the word for that location. ***\n" + 
+            "*** Type the sentinel -99999 to stop entering ***\n" + 
+            "*** your program.                             ***";
+
+        Console.WriteLine(welcomeMsg);       
+
+        // 1- load sml instructions to the memory
+        Load(ref instructionCounter, ref instructionRegister, memory);
+
+        // 2- Execute sml program that loaded in memory
+        Execute(ref instructionCounter, ref instructionRegister, ref operand, ref operationCode, ref accumulator, memory);
+        
+        // 3- prints the name and contents of each register and the complete contents of all 100 memory locations. dump()
+        Dump(in accumulator, in instructionCounter, in instructionRegister, in operationCode, in operand, memory);
         
     }
 
