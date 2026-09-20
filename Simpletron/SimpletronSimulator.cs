@@ -25,10 +25,7 @@ public partial class SimpletronSimulator
         Dump();
     }
 
-    private void Execute()
-    {
-        
-    }
+
 
     private void Dump()
     {

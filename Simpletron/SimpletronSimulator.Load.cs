@@ -4,6 +4,7 @@ public partial class SimpletronSimulator
 {
     private void Load()
     {
+        instructionCounter = 0;
         while (instructionCounter < 100)
         {
             Console.Write($"{instructionCounter:00} ? ");
