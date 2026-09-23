@@ -15,10 +15,10 @@ public partial class SimpletronSimulator
     // the next instruction to be performed from memory 
     private int instructionRegister = default;
 
-    public void Run()
+    public void Run(string path)
     {
         // 1- load sml instructions to the memory
-        Load();
+        Load(path);
         // 2- Execute sml program that loaded in memory
         Execute();
         // 3- prints the name and contents of each register and the complete contents of all 100 memory locations. dump()

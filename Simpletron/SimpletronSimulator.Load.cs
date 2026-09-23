@@ -2,23 +2,34 @@ namespace Simpletron;
 
 public partial class SimpletronSimulator
 {
-    private void Load()
+    private void Load(string path)
     {
-        instructionCounter = 0;
-        while (instructionCounter < 100)
-        {
-            Console.Write($"{instructionCounter:00} ? ");
-            instructionRegister = Math.Abs(int.Parse(Console.ReadLine()));
 
-            if (instructionRegister <= 9999)
+        // get the extension of the source file
+        string ext = Path.GetExtension(path);
+
+        instructionCounter = 0;
+        // check if the extension of src file is .sml
+        if (ext.Equals(".sml"))
+        {
+            // load the sml program
+            string[] instructions = File.ReadAllLines(path);
+            foreach (var i in instructions)
             {
+                instructionRegister = Math.Abs(int.Parse(i));
+
+                if (instructionRegister > 9999)
+                {
+                    throw new Exception($"Instruction {instructionRegister} not Valid");
+                }
                 memory[instructionCounter++] = instructionRegister;
             }
-            else if (instructionRegister == 99999)
-            {
-                Console.WriteLine("*** Program loading completed ***");
-                instructionCounter = 101;
-            }
+            Console.WriteLine("*** Program loading completed ***");
+        }
+        else
+        {
+            // throw exception
+            throw new Exception($"Not Valid Source file: {path}");
         }
     }
 }

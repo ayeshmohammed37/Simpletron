@@ -15,9 +15,12 @@ class Program
             "*** Type the sentinel -99999 to stop entering ***\n" + 
             "*** your program.                             ***";
 
+        string path = "/home/ayesh/workspace/dev/Simpletron/file.sml";
+
+        
         Console.WriteLine(welcomeMsg);
 
         SimpletronSimulator simulator = new SimpletronSimulator();
-        simulator.Run();        
+        simulator.Run(path);
     }
 }
