@@ -1,0 +1,14 @@
+# Sample SML Program That Determines the Smallest of Two Values
+
+Location  |  Number  |  Instruction
+00        |  +1009   |  (Read A)
+01        |  +1010   |  (Read B)
+02        |  +2009   |  (Load A)
+03        |  +3110   |  (Subtract B)
+04        |  +4107   |  (Branch Negative to 07)
+05        |  +1110   |  (Write B)
+06        |  +4300   |  (Halt)
+07        |  +1109   |  (Write A)
+08        |  +4300   |  (Halt)
+09        |  +0000   |  (Variable A)
+10        |  +0000   |  (Variable B)

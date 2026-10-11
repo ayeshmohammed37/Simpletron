@@ -1,29 +1,4 @@
-# SML programs
 
-// Add two numbers and print the result to the screen
-00   +1007    (Read A)
-01   +1008    (Read B)
-02   +2007    (Load A)
-03   +3008    (Add B)
-04   +2109    (Store C)
-05   +1109    (Write C)
-06   +4300    (Halt)
-07   +0000    (Variable A)
-08   +0000    (Variable B)
-09   +0000    (Result C)
-
-// Determines the Largest of Two Values
-00   +1009    (Read A)
-01   +1010    (Read B)
-02   +2009    (Load A)
-03   +3110    (Subtract B)
-04   +4107    (Branch negative to 07)
-05   +1109    (Write A)
-06   +4300    (Halt)
-07   +1110    (Write B)
-08   +4300    (Halt)
-09   +0000    (Variable A)
-10   +0000    (Variable B)
 
 // Use a sentinel-controlled loop to read positive integers, then compute and print their sum.
 00   +1010   READ into 10      Read user input into Temp
