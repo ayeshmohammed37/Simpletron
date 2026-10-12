@@ -1,18 +1,4 @@
 
-
-// Use a sentinel-controlled loop to read positive integers, then compute and print their sum.
-00   +1010   READ into 10      Read user input into Temp
-01   +2010   LOAD 10           Load Temp into accumulator
-02   +4106   BRANCHNEG to 06   If Temp < 0, branch to Print Phase
-03   +3009   ADD 09            Add Temp to Sum
-04   +2109   STORE 09          Store accumulator back into Sum
-05   +4000   BRANCH to 00      Jump back to start of the loop
-06   +1109   WRITE 09          Print Sum to screen
-07   +4300   HALT              Terminate execution
-08   +0000                     (Unused)
-09   +0000                     Variable: Sum (Initial value: 0)
-10   +0000                     Variable: Temp Input
-
 // Use a counter-controlled loop to read seven numbers, some positive and some
 // negative. Compute and print their average.
 Location   Instruction  Opcode / Meaning    Comment
