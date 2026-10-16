@@ -31,15 +31,22 @@ class Program
 
         Console.WriteLine(welcomeMsg);
 
-        // 1- load sml instructions to the memory
-        Load(ref instructionCounter, ref instructionRegister, memory);
-
-        // 2- Execute sml program that loaded in memory
-        Execute(ref instructionCounter, ref instructionRegister, ref operand, ref operationCode, ref accumulator, memory);
-
-        // 3- prints the name and contents of each register and the complete contents of all 100 memory locations. dump()
-        Dump(in accumulator, in instructionCounter, in instructionRegister, in operationCode, in operand, memory);
-
+        try
+        {
+            // 1- load sml instructions to the memory
+            Load(ref instructionCounter, ref instructionRegister, memory);
+            // 2- Execute sml program that loaded in memory
+            Execute(ref instructionCounter, ref instructionRegister, ref operand, ref operationCode, ref accumulator, memory);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            // 3- prints the name and contents of each register and the complete contents of all 100 memory locations. dump()
+            Dump(in accumulator, in instructionCounter, in instructionRegister, in operationCode, in operand, memory);
+        }
     }
 
     static void Load(ref int instructionCounter, ref int instructionRegister, int[] memory)
@@ -115,6 +122,10 @@ class Program
                     break;
                 // Divide
                 case OperationCode.Divide:
+                    if (memory[operand] == 0)
+                    {
+                        throw new Exception("Division by zero");
+                    }
                     accumulator /= memory[operand];
                     instructionCounter++;
                     break;
@@ -140,8 +151,7 @@ class Program
                     Console.WriteLine("*** Simpletron execution terminated ***");
                     return;
                 default:
-                    Console.WriteLine($"Operation-Code {operationCode} Not valid");
-                    return;
+                    throw new Exception($"invalid Operation-Code: {operationCode}");
             }
         }
     }
