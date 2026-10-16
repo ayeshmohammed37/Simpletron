@@ -41,6 +41,7 @@ class Program
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
+            Console.WriteLine("*** Simpletron execution abnormally terminated ***");
         }
         finally
         {
