@@ -27,7 +27,10 @@ public enum OperationCode
     // Multiply a word from a specific memory location by the word in the
     // accumulator (leave the result in the accumulator).
     Multiply = 33,
-
+    // Modulo a word from a specific memory location into the word in the
+    // accumulator and leave the remainder in the accumulator).
+    Modulo = 34,
+    
     // Transfer-of-control operations:
     // Branch to a specific memory location.
     Branch = 40,
