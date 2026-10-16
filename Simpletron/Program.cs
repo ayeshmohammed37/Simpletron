@@ -110,31 +110,13 @@ class Program
                     memory[operand] = accumulator;
                     instructionCounter++;
                     break;
-                // Add
+                // Arithmetic operations
                 case OperationCode.Add:
-                    accumulator += memory[operand];
-                    instructionCounter++;
-                    break;
-                // Subtract
                 case OperationCode.Subtract:
-                    accumulator -= memory[operand];
-                    instructionCounter++;
-                    break;
-                // Divide
                 case OperationCode.Divide:
-                    if (memory[operand] == 0)
-                    {
-                        throw new Exception("Division by zero");
-                    }
-                    accumulator /= memory[operand];
-                    instructionCounter++;
-                    break;
-                // Multiply
                 case OperationCode.Multiply:
-                    accumulator *= memory[operand];
-                    instructionCounter++;
+                    ExecuteAritheticOperations(ref accumulator, ref  instructionCounter, ref  operand, memory, operationCode);
                     break;
-                // Branch
                 case OperationCode.Branch:
                     instructionCounter = operand;
                     break;
@@ -153,6 +135,42 @@ class Program
                 default:
                     throw new Exception($"invalid Operation-Code: {operationCode}");
             }
+        }
+    }
+    
+    static void ExecuteAritheticOperations(ref int accumulator, ref int instructionCounter, ref int operand, int[] memory, OperationCode operationCode)
+    {
+        switch (operationCode)
+        {
+            // Add
+            case OperationCode.Add:
+                accumulator += memory[operand];
+                instructionCounter++;
+                break;
+            // Subtract
+            case OperationCode.Subtract:
+                accumulator -= memory[operand];
+                instructionCounter++;
+                break;
+            // Divide
+            case OperationCode.Divide:
+                if (memory[operand] == 0)
+                {
+                    throw new Exception("Division by zero");
+                }
+                accumulator /= memory[operand];
+                instructionCounter++;
+                break;
+            // Multiply
+            case OperationCode.Multiply:
+                accumulator *= memory[operand];
+                instructionCounter++;
+                break;
+        }
+
+        if (accumulator > 9999)
+        {
+            throw new Exception("accumulator overflows");
         }
     }
 
