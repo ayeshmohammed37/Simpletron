@@ -30,6 +30,9 @@ public enum OperationCode
     // Modulo a word from a specific memory location into the word in the
     // accumulator and leave the remainder in the accumulator).
     Modulo = 34,
+    // Exponentiation calculations, Get exponent of word for the accumulator(base)
+    // and leave the result in the accumulator
+    Exp = 35,
     
     // Transfer-of-control operations:
     // Branch to a specific memory location.
