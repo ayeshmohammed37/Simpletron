@@ -117,6 +117,7 @@ class Program
                 case OperationCode.Subtract:
                 case OperationCode.Divide:
                 case OperationCode.Multiply:
+                case OperationCode.Modulo:
                     ExecuteAritheticOperations(ref accumulator, ref  instructionCounter, ref  operand, memory, operationCode);
                     break;
                 case OperationCode.Branch:
@@ -166,6 +167,14 @@ class Program
             // Multiply
             case OperationCode.Multiply:
                 accumulator *= memory[operand];
+                instructionCounter++;
+                break;
+            case OperationCode.Modulo:
+                if (memory[operand] == 0)
+                {
+                    throw new Exception("Modulos by zero");
+                }
+                accumulator %= memory[operand];
                 instructionCounter++;
                 break;
         }
