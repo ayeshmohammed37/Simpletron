@@ -47,7 +47,7 @@ class Program
         finally
         {
             // 3- prints the name and contents of each register and the complete contents of all 100 memory locations. dump()
-            Dump(in accumulator, in instructionCounter, in instructionRegister, in operationCode, in operand, memory);
+            Dump(in accumulator, in instructionCounter, in instructionRegister, in operationCode, in operand);
         }
     }
 
@@ -178,7 +178,7 @@ class Program
 
     static void Dump(in int accumulator, in int instructionCounter, 
         in int instructionRegister, in OperationCode operationCode, 
-        in int operand, int[] memory)
+        in int operand)
     {
         Console.WriteLine("REGISTERS:");
         Console.WriteLine($"accumulator                     {accumulator:+0000;-0000;+0000}");
@@ -186,26 +186,6 @@ class Program
         Console.WriteLine($"instructionRegister             {instructionRegister:+0000;-0000;+0000}");
         Console.WriteLine($"operationCode                   {(int)operationCode,5:00}");
         Console.WriteLine($"operand                         {operand,5:00}");
-
-        Console.WriteLine("\nMEMORY:");
-        // header
-        Console.Write("  ");
-        for (int i = 0; i < 10; i++)
-        {
-            Console.Write($"{i,7}");
-        }
-        Console.WriteLine();
-        // memory blocks
-        for (int i = 0; i < 10; i++)
-        {
-            Console.Write($"{i * 10,2}");
-            for (int j = i * 10; j < (i * 10 + 10); j++)
-            {
-                // Console.Write($"  +{memory[j]:0000}");
-                Console.Write($"{memory[j],7:+0000;-0000;+0000}");
-            }
-            Console.WriteLine();
-        }
     }
 
 }
