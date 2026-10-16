@@ -2,10 +2,11 @@
 
 class Program
 {
+    const int MemorySize = 1000;
     static void Main(string[] args)
     {
         // 100-word memory for sml instructions
-        int[] memory = new int[100];
+        int[] memory = new int[MemorySize];
         // special register to store information before simpletron uses it in calculations
         int accumulator = default;
         // store the number of the memory location (00 to 99) containing the instruction being performed
@@ -52,15 +53,15 @@ class Program
 
     static void Load(ref int instructionCounter, ref int instructionRegister, int[] memory)
     {
-        while (instructionCounter < 100)
+        while (instructionCounter < MemorySize)
         {
-            Console.Write($"{instructionCounter:00} ? ");
+            Console.Write($"{instructionCounter,4} ? ");
             instructionRegister = Math.Abs(int.Parse(Console.ReadLine()));
 
             if (instructionRegister > 9999)
             {
                 Console.WriteLine("*** Program loading completed ***");
-                instructionCounter = 101;
+                instructionCounter = MemorySize + 1;
             }
             else
             {
@@ -78,7 +79,7 @@ class Program
 
         Console.WriteLine("*** Program execution begins ***");
         
-        while (instructionCounter < 100)
+        while (instructionCounter < MemorySize)
         {
             // instruction execution cycle
             // fetch the contents of the next instruction to be performed
