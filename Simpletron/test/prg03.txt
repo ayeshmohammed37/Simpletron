@@ -1,0 +1,16 @@
+# Sample SML Program That Adds Three Numbers
+
+Location  |  Number  |  Instruction
+00        |  +1009   |  (Read num1)
+01        |  +1010   |  (Read num2)
+02        |  +1011   |  (Read num3)
+03        |  +2009   |  (Load num1)
+04        |  +3010   |  (Add num2)
+05        |  +3011   |  (Add num3)
+06        |  +2112   |  (Store sum)
+07        |  +1112   |  (Write sum)
+08        |  +4300   |  (Halt)
+09        |  +0000   |  (Variable num1)
+10        |  +0000   |  (Variable num2)
+11        |  +0000   |  (Variable num3)
+12        |  +0000   |  (Result sum)

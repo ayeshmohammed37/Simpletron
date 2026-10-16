@@ -1,0 +1,13 @@
+# Use a sentinel-controlled loop to read positive integers, then compute and print their sum.
+
+Location  |  Number  |  Instruction
+00        |  +1008   |  Read A
+01        |  +2008   |  Load A
+02        |  +4106   |  BranchNeg to 06
+03        |  +3009   |  Add Sum
+04        |  +2109   |  Store Sum
+05        |  +4000   |  Branch to 00
+06        |  +1109   |  Write Sum
+07        |  +4300   |  Halt
+08        |  +0000   |  Vatiable A
+09        |  +0000   |  Variable Sum
