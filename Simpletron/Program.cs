@@ -187,5 +187,4 @@ class Program
         Console.WriteLine($"operationCode                   {(int)operationCode,5:00}");
         Console.WriteLine($"operand                         {operand,5:00}");
     }
-
 }
