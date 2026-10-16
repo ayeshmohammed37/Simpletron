@@ -2,6 +2,46 @@
 
 class Program
 {
+    static void Main(string[] args)
+    {
+        // 100-word memory for sml instructions
+        int[] memory = new int[100];
+        // special register to store information before simpletron uses it in calculations
+        int accumulator = default;
+        // store the number of the memory location (00 to 99) containing the instruction being performed
+        int instructionCounter = default;
+        // store the operation currently being performed (the instruction word’s left two digits)
+        OperationCode operationCode = default;
+        // store the number of the memory location on which the current instruction operates.
+        int operand = default;
+        // the next instruction to be performed from memory 
+        int instructionRegister = default;
+
+
+        // Welcome to Simpletron
+        string welcomeMsg =
+            "***            Welcome to Simpletron          ***\n" +
+            "***                                           ***\n" +
+            "*** Please enter your program one instruction ***\n" +
+            "*** (or data word) at a time. I will type the ***\n" +
+            "*** location number and a question mark (?).  ***\n" +
+            "*** You then type the word for that location. ***\n" +
+            "*** Type the sentinel -99999 to stop entering ***\n" +
+            "*** your program.                             ***";
+
+        Console.WriteLine(welcomeMsg);
+
+        // 1- load sml instructions to the memory
+        Load(ref instructionCounter, ref instructionRegister, memory);
+
+        // 2- Execute sml program that loaded in memory
+        Execute(ref instructionCounter, ref instructionRegister, ref operand, ref operationCode, ref accumulator, memory);
+
+        // 3- prints the name and contents of each register and the complete contents of all 100 memory locations. dump()
+        Dump(in accumulator, in instructionCounter, in instructionRegister, in operationCode, in operand, memory);
+
+    }
+
     static void Load(ref int instructionCounter, ref int instructionRegister, int[] memory)
     {
         while (instructionCounter < 100)
@@ -18,31 +58,38 @@ class Program
             {
                 memory[instructionCounter++] = instructionRegister;
             }
-        }        
+        }
     }
 
-    static void Execute(ref int instructionCounter, ref int instructionRegister, ref int operand, ref OperationCode operationCode, ref int accumulator, int[] memory)
+    static void Execute(ref int instructionCounter, ref int instructionRegister,
+        ref int operand, ref OperationCode operationCode,
+        ref int accumulator, int[] memory)
     {
+        // start from first block in the memory
         instructionCounter = 0;
+
         Console.WriteLine("*** Program execution begins ***");
+        
         while (instructionCounter < 100)
         {
-            //  instruction execution cycle
+            // instruction execution cycle
+            // fetch the contents of the next instruction to be performed
             instructionRegister = memory[instructionCounter];
+            // exxtract operand and operationCode from the instructionRegister
             operand = instructionRegister % 100;
             operationCode = (OperationCode)(instructionRegister / 100);
 
             switch (operationCode)
             {
                 // read
-                case OperationCode.Read: 
+                case OperationCode.Read:
                     Console.Write("? ");
                     int num = int.Parse(Console.ReadLine());
                     memory[operand] = num;
                     instructionCounter++;
                     break;
                 // write
-                case OperationCode.Write: 
+                case OperationCode.Write:
                     Console.WriteLine(memory[operand]);
                     instructionCounter++;
                     break;
@@ -91,24 +138,24 @@ class Program
                 // Halt
                 case OperationCode.Halt:
                     Console.WriteLine("*** Simpletron execution terminated ***");
-                    instructionCounter = 101;
-                    break;
+                    return;
                 default:
                     Console.WriteLine($"Operation-Code {operationCode} Not valid");
-                    instructionCounter = 101;
-                    break;
+                    return;
             }
         }
     }
 
-    static void Dump(in int accumulator, in int instructionCounter, in int instructionRegister, in OperationCode operationCode, in int operand, int[] memory)
+    static void Dump(in int accumulator, in int instructionCounter, 
+        in int instructionRegister, in OperationCode operationCode, 
+        in int operand, int[] memory)
     {
         Console.WriteLine("REGISTERS:");
-        Console.WriteLine($"accumulator\t\t{accumulator:0000}");
-        Console.WriteLine($"instructionCounter\t\t{instructionCounter:00}");
-        Console.WriteLine($"instructionRegister\t\t{instructionRegister:0000}");
-        Console.WriteLine($"operationCode\t\t{(int)operationCode:00}");
-        Console.WriteLine($"operand\t\t{operand:00}");
+        Console.WriteLine($"accumulator                     {accumulator:+0000;-0000;+0000}");
+        Console.WriteLine($"instructionCounter              {instructionCounter,5:00}");
+        Console.WriteLine($"instructionRegister             {instructionRegister:+0000;-0000;+0000}");
+        Console.WriteLine($"operationCode                   {(int)operationCode,5:00}");
+        Console.WriteLine($"operand                         {operand,5:00}");
 
         Console.WriteLine("\nMEMORY:");
         // header
@@ -121,53 +168,14 @@ class Program
         // memory blocks
         for (int i = 0; i < 10; i++)
         {
-            Console.Write($"{i*10, 2}");
-            for (int j = i*10; j < (i*10+10); j++)
+            Console.Write($"{i * 10,2}");
+            for (int j = i * 10; j < (i * 10 + 10); j++)
             {
-                Console.Write($"  +{memory[j]:0000}");
+                // Console.Write($"  +{memory[j]:0000}");
+                Console.Write($"{memory[j],7:+0000;-0000;+0000}");
             }
             Console.WriteLine();
         }
-    }
-
-    static void Main(string[] args)
-    {
-         // 100-word memory for sml instructions
-        int[] memory = new int[100];
-        // special register to store information before simpletron uses it in calculations
-        int accumulator = default;
-        // store the number of the memory location (00 to 99) containing the instruction being performed
-        int instructionCounter = default;
-        // store the operation currently being performed (the instruction word’s left two digits)
-        OperationCode operationCode = default;
-        // store the number of the memory location on which the current instruction operates.
-        int operand = default;
-        // the next instruction to be performed from memory 
-        int instructionRegister = default;
-
-
-        // Welcome to Simpletron
-        string welcomeMsg =
-            "***            Welcome to Simpletron          ***\n" + 
-            "***                                           ***\n" + 
-            "*** Please enter your program one instruction ***\n" + 
-            "*** (or data word) at a time. I will type the ***\n" + 
-            "*** location number and a question mark (?).  ***\n" + 
-            "*** You then type the word for that location. ***\n" + 
-            "*** Type the sentinel -99999 to stop entering ***\n" + 
-            "*** your program.                             ***";
-
-        Console.WriteLine(welcomeMsg);       
-
-        // 1- load sml instructions to the memory
-        Load(ref instructionCounter, ref instructionRegister, memory);
-
-        // 2- Execute sml program that loaded in memory
-        Execute(ref instructionCounter, ref instructionRegister, ref operand, ref operationCode, ref accumulator, memory);
-        
-        // 3- prints the name and contents of each register and the complete contents of all 100 memory locations. dump()
-        Dump(in accumulator, in instructionCounter, in instructionRegister, in operationCode, in operand, memory);
-        
     }
 
 }
